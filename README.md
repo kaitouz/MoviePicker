@@ -1,6 +1,6 @@
 # MoviePicker
 
-## Authors
+## Contributors
 
 - [@thienkaito](https://www.github.com/thienkaito)
 - [@ducthangchin](https://github.com/ducthangchin)
