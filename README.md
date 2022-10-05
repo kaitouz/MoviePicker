@@ -22,7 +22,11 @@ API:
 
 
 ## Demo
+### Dashboard
 ![Dashboard](https://github.com/kaitouz/MoviePicker/blob/main/Image/Dashboard.png)
+### Movie Preview
 ![MoviePreview](https://github.com/kaitouz/MoviePicker/blob/main/Image/MoviePreview.png)
+### Search
 ![Search](https://github.com/kaitouz/MoviePicker/blob/main/Image/Search.png)
+### My List
 ![MyList](https://github.com/kaitouz/MoviePicker/blob/main/Image/MyList.png)
