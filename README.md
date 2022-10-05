@@ -1,4 +1,4 @@
-![MoVIE_PICKER-removebg-preview](https://user-images.githubusercontent.com/85243027/194054197-1eede0c6-4e7c-483f-a7e1-6592f37c340c.png)
+![MoVIE_PICKER-removebg-preview](https://github.com/kaitouz/MoviePicker/blob/main/Image/logo-width.png)
 # Popcorn 
 ## Contributors
 
@@ -22,6 +22,7 @@ API:
 
 
 ## Demo
-![image](https://user-images.githubusercontent.com/85243027/194069999-7b87cbf8-1df9-481e-a66d-c0fb1a59b1d8.png)
-![Demo1](https://github.com/kaitouz/MoviePicker/blob/main/Image/Dashboard.png)
-![Demo2](https://github.com/kaitouz/MoviePicker/blob/main/Image/Search.png)
+![Dashboard](https://github.com/kaitouz/MoviePicker/blob/main/Image/Dashboard.png)
+![MoviePreview](https://github.com/kaitouz/MoviePicker/blob/main/Image/MoviePreview.png)
+![Search](https://github.com/kaitouz/MoviePicker/blob/main/Image/Search.png)
+![MyList](https://github.com/kaitouz/MoviePicker/blob/main/Image/MyList.png)
