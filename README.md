@@ -1,5 +1,5 @@
 ![MoVIE_PICKER-removebg-preview](https://user-images.githubusercontent.com/85243027/194054197-1eede0c6-4e7c-483f-a7e1-6592f37c340c.png)
-# Website: Popcorn 
+# Popcorn 
 ## Contributors
 
 - [@thienkaito](https://www.github.com/thienkaito)
