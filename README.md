@@ -1,4 +1,4 @@
-![MoVIE_PICKER-removebg-preview](https://github.com/kaitouz/MoviePicker/blob/main/Image/logo-width.png)
+![MoVIE_PICKER-removebg-preview](https://github.com/kaitouz/MoviePicker/blob/main/Image/logo_width.png)
 # Popcorn 
 ## Contributors
 
