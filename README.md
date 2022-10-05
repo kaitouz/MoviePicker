@@ -16,11 +16,12 @@ Boxicons: https://boxicons.com/
 
 Images: https://unsplash.com/
 
-API: https://www.themoviedb.org/
+API: 
 
 ## Usecase
 
-## Demo
 
+## Demo
+![image](https://user-images.githubusercontent.com/85243027/194069999-7b87cbf8-1df9-481e-a66d-c0fb1a59b1d8.png)
 ![Demo1](https://github.com/kaitouz/MoviePicker/blob/main/Image/Dashboard.png)
 ![Demo2](https://github.com/kaitouz/MoviePicker/blob/main/Image/Search.png)
