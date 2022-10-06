@@ -21,6 +21,16 @@ You can read honest and detailed movie reviews or you can also be a reviewer of 
 - [NodeJS] - evented I/O for the backend
 - [ExpressJS] - fast node.js network app framework, manages the website’s backend functionality and structure.
 
+## ???
+- Front-end
+  - Framework: React (Redux)
+  - CSS : sass
+  - Testing
+    - unit-test : Jest
+    - e2e-test : cypress 
+  - Module Loader/Bundler
+    - webpack
+
 ## Resource
 Google font: https://fonts.google.com/
 
