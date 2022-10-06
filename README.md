@@ -18,7 +18,7 @@ You can read honest and detailed movie reviews or you can also be a reviewer of 
 ## Tech
 
 - [ReactJS] - JS library for frontend development
-- [node.js] - evented I/O for the backend
+- [NodeJS] - evented I/O for the backend
 - [ExpressJS] - fast node.js network app framework, manages the website’s backend functionality and structure.
 
 ## Resource
