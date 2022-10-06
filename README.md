@@ -49,6 +49,9 @@ External API:
 ## Usecase
 ![image](./Image/usecase.png)
 
+## Client Server Architecture
+![image](./Image/architecture.png)
+
 ## Demo 
 > Sketch on Figma
 ### Dashboard
