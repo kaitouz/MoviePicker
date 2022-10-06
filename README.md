@@ -24,12 +24,13 @@ You can read honest and detailed movie reviews or you can also be a reviewer of 
 ## ???
 - Front-end
   - Framework: React (Redux)
-  - CSS : sass
+  - CSS 
+    - Preprocessors: Sass
   - Testing
     - unit-test : Jest
-    - e2e-test : cypress 
+    - e2e-test : Cypress 
   - Module Loader/Bundler
-    - webpack
+    - Webpack
 
 ## Resource
 Google font: https://fonts.google.com/
