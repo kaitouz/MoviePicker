@@ -15,7 +15,7 @@ You can read honest and detailed movie reviews or you can also be a reviewer of 
 - [ReactJS] - JS library for frontend development
 - [NodeJS] - evented I/O for the backend
 - [ExpressJS] - fast node.js network app framework, manages the website’s backend functionality and structure.
-- - [Clever Cloud] - A platform providing a fully managed MySQL service, with monitoring, backups and migration tools.
+- [Clever Cloud] - A platform providing a fully managed MySQL service, with monitoring, backups and migration tools.
 
 ## ???
 - Front-end
