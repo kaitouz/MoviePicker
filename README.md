@@ -53,7 +53,7 @@ Third-Party API:
 ![image](./Image/architecture.png)
 
 ## Demo 
-> Sketch on Figma
+> Sketch on Figma ('https://www.figma.com/file/Uti7pAyVyVtqrm6hhYS8YK/final?node-id=41%3A889')
 ### Dashboard
 ![Dashboard](https://github.com/kaitouz/MoviePicker/blob/main/Image/Dashboard.png)
 ### Movie Preview
