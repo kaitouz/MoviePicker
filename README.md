@@ -62,7 +62,10 @@ Third-Party API:
 ![Search](https://github.com/kaitouz/MoviePicker/blob/main/Image/Search.png)
 ### My List
 ![MyList](https://github.com/kaitouz/MoviePicker/blob/main/Image/MyList.png)
-
+### Log in
+![MyList](https://github.com/kaitouz/MoviePicker/blob/main/Image/Login.png)
+### Sign up
+![MyList](https://github.com/kaitouz/MoviePicker/blob/main/Image/SignUp.png)
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
