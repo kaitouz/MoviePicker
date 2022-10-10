@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 
 const authRouter = require('./routes/auth.routes')
+const ratingRouter = require('./routes/rating.routes')
 const userRouter = require('./routes/user.routes')
 
 const app = express();
@@ -20,3 +21,8 @@ app.get("/", (req, res) => {
 
 app.use('/auth', authRouter)
 app.use('/user', userRouter)
+app.use('/rating', ratingRouter)
+
+
+// test zone
+
