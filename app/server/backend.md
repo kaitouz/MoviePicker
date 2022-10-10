@@ -125,3 +125,60 @@
         "result": true
     }
     ```
+## Rating
+### 1. Rate a movie
+- method: ```post```
+- sample url: ```http://localhost:5000/rating/rate-movie```
+- request header: ```{x_authorization: YOUR-ACCESS-TOKEN} ```
+- request body: ``` {movie_id: 'ty5f', score: 9}```
+- sample response: 
+    ```sh
+    {
+        "msg": "new rating created",
+        "result": {
+            "id": 14,
+            "user_id": 71,
+            "movie_id": "ty5f",
+            "score": 9
+        }
+    }
+    ```
+    
+### 2. Get movie ratings
+- method: ```get```
+- sample url: ```http://localhost:5000/rating/movie-ratings?movie_id=qyr5f```
+- sample response: 
+    ```sh
+   [
+    {
+        "id": 10,
+        "user_id": 21,
+        "score": 2
+    },
+    {
+        "id": 11,
+        "user_id": 32,
+        "score": 9
+    },
+    {
+        "id": 12,
+        "user_id": 36,
+        "score": 3
+    }
+    ]
+    ```
+    
+### 3. Get user ratings
+- method: ```get```
+- sample url: ```http://localhost:5000/rating/rate-movies```
+- request header: ```{x_authorization: YOUR-ACCESS-TOKEN} ```
+- sample response: 
+    ```sh
+    [
+    {
+        "id": 14,
+        "movie_id": "ty5f",
+        "score": 8
+    }
+    ]
+    ```
