@@ -168,9 +168,9 @@
     ]
     ```
     
-### 3. Get user ratings
+### 3. Get list of user ratings
 - method: ```get```
-- sample url: ```http://localhost:5000/rating/rate-movies```
+- sample url: ```http://localhost:5000/rating/user-ratings```
 - request header: ```{x_authorization: YOUR-ACCESS-TOKEN} ```
 - sample response: 
     ```sh
@@ -182,3 +182,175 @@
     }
     ]
     ```
+    
+## Review
+### 1. Add a review
+- method: ```post```
+- sample url: ```http://localhost:5000/review/add```
+- request header: ```{x_authorization: YOUR-ACCESS-TOKEN} ```
+- request body: ``` {movie_id: 'qur5f', content: 'This is the best movie I have ever seen'}```
+- sample response: 
+    ```sh
+   {
+        "message": "review added",
+        "result": {
+            "id": 10,
+            "user_id": 71,
+            "movie_id": "qur5f",
+            "content": "This is the best movie I have ever seen"
+        }
+    }
+    ```
+    
+### 2. Edit a review
+- method: ```post```
+- sample url: ```http://localhost:5000/review/edit```
+- request header: ```{x_authorization: YOUR-ACCESS-TOKEN} ```
+- request body: ``` {review_id: 10, new_content: 'This is the best movie I have ever seen'}```
+- sample response: 
+    ```sh
+   {
+        "message": "review edited",
+        "result": true
+    }
+    ```
+    
+### 3. Delete a review
+> Either administrator or owner can be able to delete review
+- method: ```get```
+- sample url: ```http://localhost:5000/review/delete?id=10```
+- request header: ```{x_authorization: YOUR-ACCESS-TOKEN} ```
+- sample response: 
+    ```sh
+  {
+    "message": "review 10 deleted"
+    }
+    ```
+    
+### 4. Get all reviews of a movie
+- method: ```get```
+- sample url: ```http://localhost:5000/review/movie-reviews?movie_id=qur5f```
+- sample response: 
+    ```sh
+   [
+    {
+        "id": 4,
+        "movie_id": "qur5f",
+        "content": "This is the best movie I have ever seen",
+        "user_id": 33
+    },
+    {
+        "id": 5,
+        "movie_id": "qur5f",
+        "content": "This is sick, I do really recommend it",
+        "user_id": 71
+    },
+    ]
+    ```
+
+### 5. Get all user reviews
+- method: ```get```
+- sample url: ```http://localhost:5000/review/all```
+- request header: ```{x_authorization: YOUR-ACCESS-TOKEN} ```
+- sample response: 
+    ```sh
+   [
+    {
+        "id": 8,
+        "movie_id": "qur5f",
+        "content": "This is sick",
+        "user_id": 71
+    },
+    {
+        "id": 10,
+        "movie_id": "qur5f",
+        "content": "the best ever",
+        "user_id": 71
+    }
+    ]
+    ```
+## Bookmark
+### 1. Add a bookmark
+- method: ```get```
+- sample url: ```http://localhost:5000/bookmark/add?movie_id=ty5f```
+- request header: ```{x_authorization: YOUR-ACCESS-TOKEN} ```
+- sample response: 
+    ```sh
+   Bookmark has been added successfully
+    ```
+### 2. Remove a bookmark
+- method: ```get```
+- sample url: ```http://localhost:5000/bookmark/remove?movie_id=ty5f```
+- request header: ```{x_authorization: YOUR-ACCESS-TOKEN} ```
+- sample response: 
+    ```sh
+   Bookmark has been deleted successfully
+    ```
+### 3. Get all movie bookmarks
+- method: ```get```
+- sample url: ```http://localhost:5000/bookmark/all```
+- request header: ```{x_authorization: YOUR-ACCESS-TOKEN} ```
+- sample response: 
+    ```sh
+    [
+    "r2tyz",
+    "tw5r"
+    ]
+    ```
+## Watched 
+### 1. Add a movie to watched list
+- method: ```get```
+- sample url: ```http://localhost:5000/watched/add?movie_id=wtr30o```
+- request header: ```{x_authorization: YOUR-ACCESS-TOKEN} ```
+- sample response: 
+    ```sh
+  Movie with id 'wtr30o' has been added to watched list successfully
+    ```
+    
+### 2. Remove a movie from watched list
+- method: ```get```
+- sample url: ```http://localhost:5000/watched/remove?movie_id=wtr30o```
+- request header: ```{x_authorization: YOUR-ACCESS-TOKEN} ```
+- sample response: 
+    ```sh
+     Movie with id 'wtr30o' has been deleted from watched list
+    ```
+  
+### 3. Remove a movie from watched list
+- method: ```get```
+- sample url: ```http://localhost:5000/watched/all```
+- request header: ```{x_authorization: YOUR-ACCESS-TOKEN} ```
+- sample response: 
+    ```sh
+    [
+        "y2hzw",
+        "r2htw",
+        "wtr30o"
+    ]
+    ``` 
+    
+### 3. Remove a movie from watched list
+- method: ```get```
+- sample url: ```http://localhost:5000/watched/all```
+- request header: ```{x_authorization: YOUR-ACCESS-TOKEN} ```
+- sample response: 
+    ```sh
+    [
+        "y2hzw",
+        "r2htw",
+        "wtr30o"
+    ]
+    ``` 
+    
+### 4. Get number of views of a movie
+- method: ```get```
+- sample url: ```http://localhost:5000/watched/views?movie_id=y2hzw```
+- request header: ```{x_authorization: YOUR-ACCESS-TOKEN} ```
+- sample response: 
+    ```sh
+    {
+        "movie_id": "y2hzw",
+        "views": 3
+    }
+    
+    ``` 

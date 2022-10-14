@@ -52,6 +52,9 @@ Third-Party API:
 ## Client Server Architecture
 ![image](./Image/architecture.png)
 
+## Entity Relationship Diagram
+![image](./Image/ERD.png)
+
 ## Demo 
 > Sketch on Figma ('https://www.figma.com/file/Uti7pAyVyVtqrm6hhYS8YK/final?node-id=41%3A889')
 ### Dashboard
