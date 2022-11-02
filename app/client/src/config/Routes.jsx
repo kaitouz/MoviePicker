@@ -1,10 +1,10 @@
 import React from 'react'
 import {Route, Routes as Switch} from 'react-router-dom'
 
-import Home from '../components/pages/Home'
-import Catalog from '../components/pages/Catalog'
-import Detail from '../components/pages/Detail'
-import Login from '../components/login/Login'
+import Home from '../pages/Home'
+import Catalog from '../pages/Catalog'
+import Detail from '../pages/Detail'
+import Login from '../pages/login/Login'
 
 const Routes = () => {
   return (
@@ -28,7 +28,11 @@ const Routes = () => {
             />
             <Route
                 path='/login'
-                element={<Login/>}
+                element={<Login action='login'/>}
+            />
+            <Route
+                path='/signup'
+                element={<Login action='signup' />}
             />
         </Switch>
     </div>

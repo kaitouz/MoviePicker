@@ -6,35 +6,39 @@
     height: 100%;
     @include flex(center, unset);
     
-
+    
     .form {
         padding: 10px;
         @include flex(center, center);
         flex-direction: column;
         margin-left: 20%;
-
+        
         .logo{
             @include flex(center, center);
             flex-direction: column;
             img{
                 height: 100px;
+                @include mobile{
+                    height: 70px;
+                }
             }
-            margin-bottom: 50px;
-            
+            margin-bottom: 30px;
         }
-
-        .title{
-            
+        
+        .title{ 
             div:first-child{
-                font-size: 48px;
+                font-size: 36px;
                 font-weight: bolder;
+                @include mobile{
+                    font-size: 24px;
+                }
             }
-
+            
             div:nth-child(2) {
                 text-align: center;
             }
-
-            margin-bottom: 40px;
+            
+            margin-bottom: 30px;
         }
 
         input{
@@ -42,20 +46,26 @@
             margin-bottom: 30px;
             height: 70px;
             width: 80%;
-            padding: 20px;
-            font-size: 36px;
+            padding: 10px;
+            font-size: 32px;
             color: white;
             border-bottom: 1px solid white;
             background: transparent;
+            @include mobile{
+                height: 40px;
+                padding: 5px;
+                font-size: 20px;
+                width: 60%;
+            }
         }
-
+        
         .forgot{
             cursor: pointer;
             &:hover{
                 text-decoration: underline;
             }
         }
-
+        
         .loginBtn{
             margin: 20px;
             background-color: red;
@@ -67,26 +77,45 @@
             color: rgb(0, 0, 0);
             font-size: 36px;
             cursor: pointer;
-
+            
             &:hover{
                 color: white;
             }
-        }
 
+            @include mobile{
+                font-size: 24px;
+                width: 60%;
+            }
+        }
+        
         .signup {
             cursor: pointer;
         }
-
+        
+        @include mobile{
+            width: 100%;
+            margin: 0;
+        }
+        
     }
 
     .background {
+        @include mobile{
+            display: none;
+        }
+        position: relative;
+        width: 40%;
         margin-left: auto;
+        height: 100vh;
+        
         img {
-            height: 99vh;
-            object-fit: contain;
-            -webkit-mask-image: -webkit-gradient(linear, right top, left top, from(rgba(0, 0, 0, 1)), to(rgba(0, 0, 0, 0)));
+            position: absolute;
+            height: 100%;
+            right: 0;
+            -webkit-mask-image: -webkit-linear-gradient(right, rgba(0, 0, 0, 1), (rgba(0, 0, 0, 0.02)));
             
         }
     }
+
     
 }

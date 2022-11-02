@@ -44,7 +44,6 @@ const Header = (props) => {
     
     return (
         <div ref={headerRef} className={['header', active===-1?'hide':''].join(' ')}>
-            {console.log(active)}
             <div className="header__wrap container">
                 <div className="logo">
                     <img src={logo} alt="img not found" />

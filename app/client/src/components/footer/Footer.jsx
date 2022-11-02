@@ -10,7 +10,7 @@ const Footer = () => {
     const { pathname } = useLocation()
     let hide = false
     if (pathname === '/login' || pathname === '/signup') hide = true
-    console.log(pathname)
+
     return (
         <div className='footer' style={hide?{display: 'none'}:null}>
             <div className='copyright'>Ⓒ2022 POPCORN</div>
