@@ -5,8 +5,7 @@
     width: 100%;
     height: 100%;
     @include flex(center, unset);
-    
-    
+
     .form {
         padding: 10px;
         @include flex(center, center);
@@ -58,6 +57,12 @@
                 width: 60%;
             }
         }
+
+        .err{
+            width: 80%;
+            padding: 10px;
+            color: red;
+        }
         
         .forgot{
             cursor: pointer;
@@ -103,6 +108,7 @@
         @include mobile{
             display: none;
         }
+        
         position: relative;
         width: 40%;
         margin-left: auto;
@@ -112,8 +118,7 @@
             position: absolute;
             height: 100%;
             right: 0;
-            -webkit-mask-image: -webkit-linear-gradient(right, rgba(0, 0, 0, 1), (rgba(0, 0, 0, 0.02)));
-            
+            -webkit-mask-image: -webkit-linear-gradient(right, rgba(0, 0, 0, 1), (rgba(0, 0, 0, 0.02)));   
         }
     }
 
