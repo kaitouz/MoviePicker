@@ -1,9 +1,10 @@
 import React, {useRef} from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import './header.scss'
 
 import logo from '../../assets/logo.png'
+import default_avt from '../../assets/default_avt.png'
 import { useEffect } from 'react'
 
 const headerNav = [
@@ -23,12 +24,12 @@ const headerNav = [
 
 const Header = (props) => {
 
+    const navigate = useNavigate()
     const {pathname} = useLocation()
     const headerRef = useRef(null)
     const active = headerNav.findIndex(e => e.path == pathname)
 
     useEffect(() => {
-        console.log('render')
         const shrinkHeader = () => {
             if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
                 headerRef.current.classList.add('shrink')
@@ -60,13 +61,32 @@ const Header = (props) => {
                             </li>
                         ))
                     }
-                    <li className='login'>
-                        <Link to='/login'>
-                            <i className="fa fa-sign-in" style={{'fontSize': '48px','color': 'red'}}></i>
-                        </Link>
-                    </li>
+
+                    {localStorage.getItem('token') 
+                        ? <div className='user-config'>
+                            <img src={default_avt}></img>
+                            <div className='dropdown-list'>
+                                <a href='#'>Bookmarks</a>
+                                <a href='#'>Setting</a>
+                                <a onClick={() => {
+                                    localStorage.removeItem('token')
+                                    localStorage.removeItem('user')
+                                    localStorage.removeItem('refreshToken')
+                                    navigate(0)
+                                }}>Sign out</a>
+                            </div>
+                        </div>
+                        : <div className='login'>
+                            <Link to='/login'>
+                                <i className="fa fa-sign-in" style={{ 'fontSize': '48px'}}></i>
+                            </Link>
+                        </div> 
+                    }
+                    
                 </ul>
+
             </div>
+                
         </div>
     )
 }

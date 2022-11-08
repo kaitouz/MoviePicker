@@ -5,6 +5,7 @@ import Home from '../pages/Home'
 import Catalog from '../pages/Catalog'
 import Detail from '../pages/Detail'
 import Login from '../pages/login/Login'
+import Signup from '../pages/signup/Signup'
 
 const Routes = () => {
   return (
@@ -28,11 +29,11 @@ const Routes = () => {
             />
             <Route
                 path='/login'
-                element={<Login action='login'/>}
+                element={<Login/>}
             />
             <Route
                 path='/signup'
-                element={<Login action='signup' />}
+                element={<Signup/>}
             />
         </Switch>
     </div>
