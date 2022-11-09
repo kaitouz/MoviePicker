@@ -37,6 +37,7 @@ body {
 a {
   text-decoration: none;
   color: unset;
+  transition: color 0.3s ease;
 }
 
 @media (hover: hover) {

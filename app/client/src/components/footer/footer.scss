@@ -6,6 +6,10 @@
     position: absolute;
     width: 100%;
     bottom: 0;
+
+    @include mobile{
+        display: none;
+    }
     
     padding: 5px 15px;
 

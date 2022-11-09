@@ -26,6 +26,8 @@ const Header = (props) => {
 
     const navigate = useNavigate()
     const {pathname} = useLocation()
+
+    const shouldHide = pathname === '/login' || pathname === '/signup'
     const headerRef = useRef(null)
     const active = headerNav.findIndex(e => e.path == pathname)
 
@@ -36,16 +38,16 @@ const Header = (props) => {
             } else {
                 headerRef.current.classList.remove('shrink')
             }
-            window.addEventListener('scroll', shrinkHeader)
-            return () => {
-                window.removeEventListener('scroll', shrinkHeader)
-            };
         }
+        window.addEventListener('scroll', shrinkHeader)
+        return () => {
+            window.removeEventListener('scroll', shrinkHeader)
+        };
     }, [])
 
     
     return (
-        <div ref={headerRef} className={['header', active===-1?'hide':''].join(' ')}>
+        <div ref={headerRef} className={['header', shouldHide ?'hide':''].join(' ')}>
             <div className="header__wrap container">
                 <div className="logo">
                     <img src={logo} alt="img not found" />

@@ -1,0 +1,16 @@
+@use "../../scss/" as *;
+
+.movie-list {
+    @include flex(center, space-between);
+    .swiper-slide {
+        width: 15%;
+
+        @include tablet {
+            width: 30%;
+        }
+
+        @include mobile {
+            width: 40%;
+        }
+    }
+}

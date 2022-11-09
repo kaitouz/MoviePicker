@@ -28,7 +28,7 @@
     left: 0;
     width: 100%;
     z-index: 99;
-    transition: height 0.3s ease, background-color 0.3s ease;
+    transition: height 0.5s ease, background-color 0.7s ease;
 
     &.shrink {
         height: $header-shrink-height;
@@ -111,6 +111,9 @@
         }
 
         .login{
+            i{
+                transition: transform 0.5s ease;
+            }
             i:hover{
                 transform: scale(1.1);
                 color: red;

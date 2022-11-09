@@ -15,15 +15,16 @@ const Login = () => {
   const [bgURL, setBgURL] = useState(null)
   const [email, setEmail] = useState(null)
   const [password, setPassword] = useState(null)
+  
 
-  let imgList
+  
 
   useEffect(() => {
     document.getElementById('email').focus()
 
     let intervalId
     tmdbAPI.getMoviesList('popular', {}).then(res => {
-      imgList = res.results.map(x => config.originalImage(x.poster_path))
+      const imgList = res.results.map(x => config.originalImage(x.poster_path))
       let i = Date.now() % 20
       setBgURL(imgList[i])
       intervalId = setInterval(
