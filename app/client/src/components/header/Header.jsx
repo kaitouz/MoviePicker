@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, { useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import './header.scss'
@@ -22,11 +22,9 @@ const headerNav = [
     }
 ]
 
-const Header = (props) => {
-
+const Header = () => {
     const navigate = useNavigate()
-    const {pathname} = useLocation()
-
+    const { pathname } = useLocation()
     const shouldHide = pathname === '/login' || pathname === '/signup'
     const headerRef = useRef(null)
     const active = headerNav.findIndex(e => e.path == pathname)
@@ -45,9 +43,9 @@ const Header = (props) => {
         };
     }, [])
 
-    
+
     return (
-        <div ref={headerRef} className={['header', shouldHide ?'hide':''].join(' ')}>
+        <div ref={headerRef} className={['header', shouldHide ? 'hide' : ''].join(' ')}>
             <div className="header__wrap container">
                 <div className="logo">
                     <img src={logo} alt="img not found" />
@@ -63,8 +61,7 @@ const Header = (props) => {
                             </li>
                         ))
                     }
-
-                    {localStorage.getItem('token') 
+                    {localStorage.getItem('token')
                         ? <div className='user-config'>
                             <img src={default_avt}></img>
                             <div className='dropdown-list'>
@@ -80,15 +77,12 @@ const Header = (props) => {
                         </div>
                         : <div className='login'>
                             <Link to='/login'>
-                                <i className="fa fa-sign-in" style={{ 'fontSize': '48px'}}></i>
+                                <i className="fa fa-sign-in" style={{ 'fontSize': '48px' }}></i>
                             </Link>
-                        </div> 
+                        </div>
                     }
-                    
                 </ul>
-
             </div>
-                
         </div>
     )
 }

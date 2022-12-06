@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const reviewController = require('../controllers/review.controllers')
-const {isAuth} = require('../middlewares/auth.middlewares')
+const { isAuth } = require('../middlewares/auth.middlewares')
 
 router.post('/add', isAuth, reviewController.addReview)
 router.post('/edit', isAuth, reviewController.editReview)

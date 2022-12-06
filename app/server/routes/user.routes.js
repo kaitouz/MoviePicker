@@ -1,10 +1,9 @@
 const express = require('express')
-const router = express.Router();
+const router = express.Router()
 
 const userController = require('../controllers/user.controllers')
 
-const { isAuth } = require('../middlewares/auth.middlewares');
-
+const { isAuth } = require('../middlewares/auth.middlewares')
 
 router.get('/profile', isAuth, async (req, res) => {
     res.send(req.user)

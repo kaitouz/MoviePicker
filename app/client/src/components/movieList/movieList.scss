@@ -2,6 +2,7 @@
 
 .movie-list {
     @include flex(center, space-between);
+
     .swiper-slide {
         width: 15%;
 

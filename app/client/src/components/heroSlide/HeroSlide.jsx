@@ -1,29 +1,26 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
-import SwiperCore, {Autoplay} from 'swiper'
-import { Swiper, SwiperSlide } from  'swiper/react'
+import React, { useState, useEffect } from 'react'
+import SwiperCore, { Autoplay } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import PropTypes from 'prop-types'
 
 import 'swiper/swiper-bundle.css';
 import './heroSlide.scss'
 
-import tmdbAPI, { category, movieType } from '../../api/tmdbAPI'
+import tmdbAPI, { movieType } from '../../api/tmdbAPI'
 import { config } from '../../api/tmdbConfig'
 import { useNavigate } from 'react-router-dom';
 import Button from '../button/Button';
 
 const HeroSlide = () => {
-
     SwiperCore.use([Autoplay])
     const [movieItems, setMovieItems] = useState([])
 
-    useEffect(() => { 
-    tmdbAPI.getMoviesList(movieType.popular, {})    
-    .then(res => {
-        setMovieItems(res.results)
-    }
-    )  
+    useEffect(() => {
+        tmdbAPI.getMoviesList(movieType.popular, {})
+            .then(res => {
+                setMovieItems(res.results)
+            })
     }, [])
-
 
     return (
         <div className='hero-slide'>
@@ -32,15 +29,14 @@ const HeroSlide = () => {
                 grabCursor={true}
                 spaceBetween={0}
                 slidesPerView={1}
-                autoplay={{delay: 5000}}
-                
+                autoplay={{ delay: 5000 }}
             >
                 {
                     movieItems.map((item, i) => (
                         <SwiperSlide key={i}>
                             {({ isActive }) => (
                                 <HeroSlideItem item={item} className={`${isActive ? 'active' : ''}`} />
-                            )}   
+                            )}
                         </SwiperSlide>
                     ))
                 }
@@ -49,13 +45,11 @@ const HeroSlide = () => {
     )
 }
 
-
 const HeroSlideItem = props => {
     let navigate = useNavigate()
     const item = props.item
-    const background =  config.originalImage(item.backdrop_path ? item.backdrop_path : item.poster_path)
-
-    const setModelActive = () => {}
+    const background = config.originalImage(item.backdrop_path ? item.backdrop_path : item.poster_path)
+    const setModelActive = () => { }
 
     return (
         <div
@@ -70,9 +64,8 @@ const HeroSlideItem = props => {
                     </h2>
                     <div className="overview">{item.overview}</div>
                     <div className="btns">
-                        <Button onClick={() => navigate(`/movie/${item.id}`)} name='Watch now'/>
-                        <Button onClick={setModelActive} name='Watch trailer'/>
-                        
+                        <Button onClick={() => navigate(`/movie/${item.id}`)} name='Watch now' />
+                        <Button onClick={setModelActive} name='Watch trailer' />
                     </div>
                 </div>
                 <div className="hero-slide__item__content__poster">
@@ -81,7 +74,11 @@ const HeroSlideItem = props => {
             </div>
         </div>
     )
+}
 
+HeroSlideItem.propTypes = {
+    item: PropTypes.object,
+    className: PropTypes.string
 }
 
 export default HeroSlide

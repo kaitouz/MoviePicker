@@ -13,16 +13,16 @@ const Footer = () => {
     if (pathname === '/login' || pathname === '/signup') hide = true
 
     return (
-        <div className='footer' style={hide?{display: 'none'}:null}>
+        <div className='footer' style={hide ? { display: 'none' } : null}>
             <div className='copyright'>Ⓒ2022 POPCORN</div>
             <div className='foot-logo' onClick={() => navigate('/')}>
-                <img src={logo} alt='popcorn'/>
+                <img src={logo} alt='popcorn' />
                 <p>Popcorn</p>
             </div>
             <a className='github-source' rel="noreferrer" href='https://github.com/kaitouz/MoviePicker' target='_blank'>
                 <img src={github_logo} alt='source-code'></img>
             </a>
-            
+
         </div>
     )
 }

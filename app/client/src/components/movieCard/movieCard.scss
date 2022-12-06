@@ -1,7 +1,6 @@
 @use "../../scss/" as *;
 
 .movie-card_container {
-    
     .movie-card {
         position: relative;
         background-position: center;
@@ -10,16 +9,12 @@
         border-radius: $border-radius;
         margin-bottom: 1rem;
         height: $card-height;
-        
-
-
         transition: transform 1s ease;
 
-        @include mobile{
+        @include mobile {
             height: $mobile-card-height;
             margin-bottom: 0.5rem;
         }
-
 
         .btn {
             position: absolute;
@@ -43,7 +38,6 @@
             border-radius: $border-radius;
         }
 
-
         &:hover::before {
             opacity: 0.8;
         }
@@ -52,15 +46,15 @@
             transform: translate(-50%, -50%) scale(1);
             align-items: center;
         }
-
     }
-    
+
     .title {
         width: 100%;
         padding: 0 5px;
         font-size: 1.5rem;
         text-align: center;
-        @include mobile{
+
+        @include mobile {
             padding: 0;
         }
     }

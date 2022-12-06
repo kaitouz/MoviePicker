@@ -14,9 +14,7 @@ exports.isAuth = async (req, res, next) => {
         accessTokenSecret
     )
     if (!verified) {
-        return res
-            .status(401)
-            .send('You have no right to access this feature.');
+        return res.status(401).send('You have no right to access this feature.')
     }
     const user = await userService.getUserByEmail(verified.payload.email)
     req.user = user

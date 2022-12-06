@@ -2,7 +2,8 @@
 
 .hero-slide {
     margin-bottom: 3rem;
-    @include mobile{
+
+    @include mobile {
         margin-bottom: 1.5rem;
     }
 }
@@ -56,7 +57,7 @@
                 font-weight: 700;
                 line-height: 1;
 
-                .release-date{
+                .release-date {
                     font-size: 1rem;
                     font-weight: 300;
                     padding: 5px;
@@ -73,12 +74,10 @@
 
             .btns>*~* {
                 margin-left: 1rem;
-                
             }
 
-
-            .btns{
-                button:first-child{
+            .btns {
+                button:first-child {
                     background-color: transparent;
                     border: 2px solid white;
                 }
@@ -102,7 +101,6 @@
                 width: 400px;
                 border-radius: $border-radius;
                 box-shadow: $box-shadow;
-
                 transform: scale(0);
                 transition: transform 1s ease;
             }
@@ -120,7 +118,6 @@
     }
 
     &.active>&__content>&__content__info {
-
         .btns,
         .title,
         .overview {

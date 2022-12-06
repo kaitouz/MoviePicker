@@ -6,16 +6,17 @@ import './button.scss'
 const Button = props => {
   return (
     <button
-        className='btn'
-        onClick={props.onClick}
+      className='btn'
+      onClick={props.onClick}
     >
-        {props.name}
+      {props.name}
     </button>
   )
 }
 
 Button.propTypes = {
-    onClick: PropTypes.func
+  onClick: PropTypes.func,
+  name: PropTypes.string
 }
 
 export default Button

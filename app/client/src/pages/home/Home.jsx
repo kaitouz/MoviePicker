@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 import classes from './home.module.scss'
 
-import tmdbAPI, { category, movieType, tvType } from '../../api/tmdbAPI'
+import { category, movieType, tvType } from '../../api/tmdbAPI'
 
 import Button from '../../components/button/Button'
 import HeroSlide from '../../components/heroSlide/HeroSlide'
@@ -11,13 +11,12 @@ import MovieList from '../../components/movieList/MovieList'
 const Home = () => {
   return (
     <>
-
       <HeroSlide />
 
       <div className={classes.moviesList}>
         <div className={classes.title}>
           <div>Popular TV Shows</div>
-          <Button name='More' className='btn'/>
+          <Button name='More' className='btn' />
         </div>
         <MovieList category={category.tv} type={tvType.popular} />
       </div>

@@ -1,11 +1,14 @@
 const bookmarkService = require('../services/bookmark.services')
 
 exports.addBookmark = async (req, res) => {
-    const user = req.user 
+    const user = req.user
     const movie_id = req.query.movie_id
     if (!movie_id) return res.status(401).send('movie_id not found')
 
-    const result = await bookmarkService.getBookmarkByUserIdAndMovieId(user.id, movie_id)
+    const result = await bookmarkService.getBookmarkByUserIdAndMovieId(
+        user.id,
+        movie_id
+    )
     if (!result) {
         await bookmarkService.addBookmark(user.id, movie_id)
         return res.send('Bookmark has been added successfully')
@@ -15,11 +18,14 @@ exports.addBookmark = async (req, res) => {
 }
 
 exports.removeBookmark = async (req, res) => {
-    const user = req.user 
+    const user = req.user
     const movie_id = req.query.movie_id
-    if(!movie_id) return res.status(401).send('movie_id not found')
+    if (!movie_id) return res.status(401).send('movie_id not found')
 
-    const result = await bookmarkService.getBookmarkByUserIdAndMovieId(user.id, movie_id)
+    const result = await bookmarkService.getBookmarkByUserIdAndMovieId(
+        user.id,
+        movie_id
+    )
     if (!result) {
         res.send('Bookmark does not exist')
     } else {
@@ -38,6 +44,3 @@ exports.userBookmark = async (req, res) => {
     }
     return res.send(list)
 }
-
-
-

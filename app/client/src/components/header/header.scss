@@ -78,11 +78,10 @@
 
         .user-config {
             position: relative;
+
             img {
                 height: 48px;
                 cursor: pointer;
-
-                
             }
 
             &:hover .dropdown-list {
@@ -90,31 +89,29 @@
                 flex-direction: column;
             }
 
-            .dropdown-list{
+            .dropdown-list {
                 display: none;
                 position: absolute;
                 left: -50%;
                 min-width: 100px;
                 background-color: #7c7c7c;
-                
                 font-size: 1.5rem;
                 font-weight: 500;
                 padding: 10px;
                 border-radius: 15px;
 
-                a{
+                a {
                     cursor: pointer;
                 }
-
-
             }
         }
 
-        .login{
-            i{
+        .login {
+            i {
                 transition: transform 0.5s ease;
             }
-            i:hover{
+
+            i:hover {
                 transform: scale(1.1);
                 color: red;
             }

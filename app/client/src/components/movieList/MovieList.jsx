@@ -1,14 +1,12 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
-
 import { SwiperSlide, Swiper } from 'swiper/react';
-import MovieCard from '../movieCard/MovieCard';
-import tmdbAPI from '../../api/tmdbAPI';
-import { category } from '../../api/tmdbAPI';
 
 import 'swiper/swiper-bundle.css';
 import './movieList.scss'
+
+import MovieCard from '../movieCard/MovieCard';
+import tmdbAPI, { category } from '../../api/tmdbAPI';
 
 const MovieList = props => {
     const [items, setItems] = useState([])
@@ -29,14 +27,11 @@ const MovieList = props => {
             }
             setItems(response.results)
         }
-
         fetchData()
-    }, []) 
-
+    }, [])
 
     return (
         <div className='movie-list'>
-          
             <Swiper
                 grabCursor={true}
                 spaceBetween={10}
@@ -50,14 +45,14 @@ const MovieList = props => {
                     )) : null
                 }
             </Swiper>
-            
         </div>
     )
 }
 
 MovieList.propTypes = {
     category: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired
+    type: PropTypes.string.isRequired,
+    id: PropTypes.string
 }
 
 export default MovieList
