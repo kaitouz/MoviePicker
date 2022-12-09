@@ -2,6 +2,7 @@
 
 .hero-slide {
     margin-bottom: 3rem;
+    user-select: none;
 
     @include mobile {
         margin-bottom: 1.5rem;
@@ -118,6 +119,7 @@
     }
 
     &.active>&__content>&__content__info {
+
         .btns,
         .title,
         .overview {

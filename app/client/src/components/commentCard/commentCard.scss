@@ -1,0 +1,142 @@
+@use '../../scss/' as *;
+
+.comment-card {
+    background-color: rgba($color: gray, $alpha: 0.1);
+    padding: 5px 20px 20px 15px;
+    width: 100%;
+    border-radius: 10px;
+    box-sizing: border-box;
+    margin: 1rem 0;
+    position: relative;
+
+    &__button {
+        position: absolute;
+        right: 20px;
+        top: 5px;
+        cursor: pointer;
+        @include flex(center, center);
+
+        &>* {
+            position: relative;
+            margin-left: 15px;
+            transition: color 0.6s ease;
+
+            &:hover {
+                color: red;
+            }
+
+            &:active {
+                opacity: 0.8;
+            }
+
+            p {
+                position: absolute;
+                right: 50%;
+                transform: translateX(50%);
+                top: 1.5rem;
+                padding: 2px 5px;
+                background-color: rgba($color: gray, $alpha: 0.4);
+                border-radius: 5px;
+                color: white;
+                font-size: 1rem;
+                margin-top: 5px;
+                display: none;
+            }
+
+            &:hover {
+                p {
+                    display: block;
+                }
+            }
+        }
+    }
+
+    &__header {
+        @include flex(center, unset);
+
+        h3 {
+            margin-right: 1rem;
+        }
+
+        .role {
+            font-size: smaller;
+            border: 2px solid white;
+            padding: 0 5px;
+            border-radius: $border-radius;
+            box-shadow: 0 0 3px 1px rgba($color: white, $alpha: 0.3);
+        }
+    }
+
+    &__time {
+        font-weight: 300;
+        font-size: smaller;
+
+    }
+
+    &__content {
+        margin-top: 20px;
+        background-color: rgba(gray, 0.2);
+        border-radius: 0 15px 15px 15px;
+        overflow: hidden;
+
+        p {
+            max-height: 150px;
+            padding: 5px 10px 10px 20px;
+            overflow-y: auto;
+        }
+
+        &__edit {
+            padding: 5px 10px 10px 20px;
+            @include flex(center, unset);
+            flex-wrap: wrap;
+            display: none;
+
+            div {
+                padding: 5px 10px;
+                border: 2px solid white;
+                margin-bottom: 1rem;
+                max-height: 150px;
+                cursor: text;
+                overflow: auto;
+            }
+
+            span {
+                outline: none;
+                padding: 5px;
+            }
+
+            button {
+                margin-right: 10px;
+                font-size: 1rem;
+                font-weight: 700;
+                color: white;
+                border: 2px solid white;
+                background-color: transparent;
+                height: 2.5rem;
+                box-sizing: border-box;
+                padding: 5px 20px;
+                border-radius: $border-radius;
+                box-shadow: 0 0 5px 2px rgba($color: white, $alpha: 0.2);
+
+                &:hover {
+                    background-color: rgba($color: white, $alpha: 0.1);
+                    box-shadow: 0 0 5px 2px rgba($color: white, $alpha: 0.6);
+                }
+
+                &:active {
+                    background-color: rgba($color: white, $alpha: 0.4);
+                }
+            }
+        }
+
+        &.editable {
+            p {
+                display: none;
+            }
+
+            .comment-card__content__edit {
+                display: block;
+            }
+        }
+    }
+}

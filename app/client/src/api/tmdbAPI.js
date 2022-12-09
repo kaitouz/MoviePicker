@@ -16,7 +16,7 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(async config => config)
 
 axiosClient.interceptors.response.use(res => {
-    console.log(res.request.responseURL)
+    //console.log(res.request.responseURL)
     if (res && res.data)
         return res.data
     return res
@@ -71,7 +71,6 @@ const tmdbAPI = {
         const url = category[cate] + '/' + id + '/similar';
         return axiosClient.get(url, { params: {} });
     }
-
 }
 
 export default tmdbAPI

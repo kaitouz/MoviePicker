@@ -4,6 +4,25 @@ const userService = require('../services/user.services')
 
 const { SALT_ROUNDS } = require('../config/auth.config')
 
+exports.getUserInfo = async (req, res) => {
+    const userId = req.query.id
+    const results = await userService.getUserById(userId)
+    if(!results){
+        return res.json({
+            message: 'user not found',
+            result: false
+        })
+    } else{
+        const result = results[0]
+        const userPublicInfo = {
+            id: result.id,
+            name: result.name,
+            role: result.role
+        }
+        return res.json(userPublicInfo)
+    }
+}
+
 exports.deleteUser = async (req, res) => {
     const user = req.user
     if (user.role !== 'admin')

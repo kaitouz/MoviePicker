@@ -12,6 +12,7 @@ const MovieList = props => {
     const [items, setItems] = useState([])
 
     useEffect(() => {
+        console.log('render')
         const fetchData = async () => {
             let response = null
             if (props.type !== 'similar') {
@@ -52,7 +53,7 @@ const MovieList = props => {
 MovieList.propTypes = {
     category: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
-    id: PropTypes.string
+    id: PropTypes.any
 }
 
 export default MovieList

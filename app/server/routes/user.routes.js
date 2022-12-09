@@ -9,6 +9,7 @@ router.get('/profile', isAuth, async (req, res) => {
     res.send(req.user)
 })
 
+router.get('/public-info', userController.getUserInfo)
 router.get('/delete', isAuth, userController.deleteUser)
 router.get('/all', isAuth, userController.getAllUsers)
 router.post('/reset-password', isAuth, userController.changePassword)

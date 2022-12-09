@@ -40,6 +40,7 @@ const Login = () => {
   const showErr = errMessage => document.getElementById('err-msg').innerHTML = errMessage
 
   const submitForm = () => {
+    console.log('processing..')
     if (email == null)
       document.getElementById('email-err').innerHTML = 'Please enter email'
     else document.getElementById('email-err').innerHTML = null
@@ -56,9 +57,10 @@ const Login = () => {
           id: res.data.user.id,
           name: res.data.user.name,
           email: res.data.user.email,
+          role: res.data.user.role
         }
 
-        localStorage.setItem('user', user)
+        localStorage.setItem('user', JSON.stringify(user))
         localStorage.setItem('token', res.data.accessToken)
         localStorage.setItem('refreshToken', res.data.refreshToken)
 

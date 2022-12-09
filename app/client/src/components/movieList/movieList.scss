@@ -1,6 +1,8 @@
 @use "../../scss/" as *;
 
 .movie-list {
+    user-select: none;
+
     @include flex(center, space-between);
 
     .swiper-slide {

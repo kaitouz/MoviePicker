@@ -1,0 +1,31 @@
+@use '../../scss/' as *;
+
+.video-list {
+    @include flex(center, space-between);
+    flex-wrap: wrap;
+
+    &>* {
+        width: 45%;
+        min-width: 350px;
+        margin: 0.5rem 0;
+
+        h2 {
+            margin-bottom: 1rem;
+        }
+
+        iframe {
+            border-radius: $border-radius;
+            overflow: hidden;
+            height: 50vh;
+            box-shadow: 0 0 15px 5px rgba($color: white, $alpha: 0.3);
+        }
+
+        @include tablet {
+            width: 100%;
+
+            iframe {
+                height: 30vh;
+            }
+        }
+    }
+}

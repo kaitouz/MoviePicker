@@ -45,7 +45,7 @@ exports.deleteReview = async (req, res) => {
     const review = await reviewService.getReviewById(id)
     if (!review) return res.status(401).send('review does not exist')
 
-    if (review.user_id !== user.id || user.role !== 'admin')
+    if (review.user_id !== user.id && user.role !== 'admin')
         return res.status(401).send('You have no right to delete this review')
 
     await reviewService.deleteReview(review.id)

@@ -84,6 +84,7 @@ const Signup = () => {
     }
 
     const submitForm = () => {
+        console.log('processing...')
         const validName = validateName()
         const validEmail = validateEmail()
         const validPassword = validatePassword()
@@ -101,9 +102,10 @@ const Signup = () => {
                             id: res.data.user.id,
                             name: res.data.user.name,
                             email: res.data.user.email,
+                            role: res.data.user.role
                         }
 
-                        localStorage.setItem('user', user)
+                        localStorage.setItem('user', JSON.stringify(user))
                         localStorage.setItem('token', res.data.accessToken)
                         localStorage.setItem('refreshToken', res.data.refreshToken)
 

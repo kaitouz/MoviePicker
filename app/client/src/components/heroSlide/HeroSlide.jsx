@@ -6,10 +6,11 @@ import PropTypes from 'prop-types'
 import 'swiper/swiper-bundle.css';
 import './heroSlide.scss'
 
-import tmdbAPI, { movieType } from '../../api/tmdbAPI'
+import tmdbAPI, { category, movieType } from '../../api/tmdbAPI'
 import { config } from '../../api/tmdbConfig'
 import { useNavigate } from 'react-router-dom';
 import Button from '../button/Button';
+import MovieFrame from '../movieFrame/MovieFrame';
 
 const HeroSlide = () => {
     SwiperCore.use([Autoplay])
@@ -26,10 +27,10 @@ const HeroSlide = () => {
         <div className='hero-slide'>
             <Swiper
                 modules={[Autoplay]}
-                grabCursor={true}
+                //grabCursor={true}
                 spaceBetween={0}
                 slidesPerView={1}
-                autoplay={{ delay: 5000 }}
+                autoplay={{ delay: 7000 }}
             >
                 {
                     movieItems.map((item, i) => (
@@ -38,9 +39,23 @@ const HeroSlide = () => {
                                 <HeroSlideItem item={item} className={`${isActive ? 'active' : ''}`} />
                             )}
                         </SwiperSlide>
+
                     ))
+
+
                 }
             </Swiper>
+
+            {movieItems.map((item, i) =>
+                <MovieFrame id={`frame_${item.id}`} key={i} onClose={() => {
+                    const iframe = document.getElementById(`frame_${item.id}`).querySelector('.movie-frame__content__video > iframe')
+                    if (iframe) {
+                        const videoSrc = iframe.src
+                        iframe.src = videoSrc
+                    }
+                }}>
+                    <iframe style={{ width: '100%', verticalAlign: 'middle', height: '100vmin', maxHeight: '500px' }} />
+                </MovieFrame>)}
         </div>
     )
 }
@@ -49,7 +64,25 @@ const HeroSlideItem = props => {
     let navigate = useNavigate()
     const item = props.item
     const background = config.originalImage(item.backdrop_path ? item.backdrop_path : item.poster_path)
-    const setModelActive = () => { }
+
+    const setModelActive = async () => {
+        const movieFrame = document.getElementById(`frame_${item.id}`)
+        const iframe = movieFrame.querySelector('.movie-frame__content__video > iframe')
+        if (iframe.getAttribute('src') !== null) {
+            console.log(iframe.getAttribute('src'))
+            return movieFrame.classList.toggle('active')
+        }
+
+        const videos = await tmdbAPI.getVideos(category.movie, item.id)
+        if (videos.results.length > 0) {
+            const videSrc = 'https://www.youtube.com/embed/' + videos.results[0].key
+            movieFrame.querySelector('.movie-frame__content__video > iframe').setAttribute('src', videSrc)
+        } else {
+            movieFrame.querySelector('.movie-frame__content__video').innerHTML = 'No trailer'
+        }
+
+        movieFrame.classList.toggle('active')
+    }
 
     return (
         <div
@@ -64,8 +97,8 @@ const HeroSlideItem = props => {
                     </h2>
                     <div className="overview">{item.overview}</div>
                     <div className="btns">
-                        <Button onClick={() => navigate(`/movie/${item.id}`)} name='Watch now' />
-                        <Button onClick={setModelActive} name='Watch trailer' />
+                        <Button onClick={() => navigate(`/movie/${item.id}`)} name='Detail' />
+                        <Button onClick={setModelActive} name='Trailer' />
                     </div>
                 </div>
                 <div className="hero-slide__item__content__poster">

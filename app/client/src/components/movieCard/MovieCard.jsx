@@ -17,7 +17,10 @@ const MovieCard = props => {
     return (
         <div className='movie-card_container'>
             <div className="movie-card" style={{ backgroundImage: `url(${bg})` }} >
-                <Button name='Detail' onClick={() => { navigate(link) }}>
+                <Button name='Detail' onClick={() => {
+                    navigate(link)
+                    navigate(0)
+                }}>
                 </Button>
             </div>
             <h3 className='title'>{item.title || item.name}</h3>
