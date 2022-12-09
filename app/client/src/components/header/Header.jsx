@@ -1,9 +1,10 @@
-import React, {useRef} from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import React, { useRef } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import './header.scss'
 
 import logo from '../../assets/logo.png'
+import default_avt from '../../assets/default_avt.png'
 import { useEffect } from 'react'
 
 const headerNav = [
@@ -21,9 +22,10 @@ const headerNav = [
     }
 ]
 
-const Header = (props) => {
-
-    const {pathname} = useLocation()
+const Header = () => {
+    const navigate = useNavigate()
+    const { pathname } = useLocation()
+    const shouldHide = pathname === '/login' || pathname === '/signup'
     const headerRef = useRef(null)
     const active = headerNav.findIndex(e => e.path == pathname)
 
@@ -34,16 +36,16 @@ const Header = (props) => {
             } else {
                 headerRef.current.classList.remove('shrink')
             }
-            window.addEventListener('scroll', shrinkHeader)
-            return () => {
-                window.removeEventListener('scroll', shrinkHeader)
-            };
         }
+        window.addEventListener('scroll', shrinkHeader)
+        return () => {
+            window.removeEventListener('scroll', shrinkHeader)
+        };
     }, [])
 
-    
+
     return (
-        <div ref={headerRef} className={['header', active===-1?'hide':''].join(' ')}>
+        <div ref={headerRef} className={['header', shouldHide ? 'hide' : ''].join(' ')}>
             <div className="header__wrap container">
                 <div className="logo">
                     <img src={logo} alt="img not found" />
@@ -59,11 +61,26 @@ const Header = (props) => {
                             </li>
                         ))
                     }
-                    <li className='login'>
-                        <Link to='/login'>
-                            <i className="fa fa-sign-in" style={{'fontSize': '48px','color': 'red'}}></i>
-                        </Link>
-                    </li>
+                    {localStorage.getItem('token')
+                        ? <div className='user-config'>
+                            <img src={default_avt}></img>
+                            <div className='dropdown-list'>
+                                <a href='#'>Bookmarks</a>
+                                <a href='#'>Setting</a>
+                                <a onClick={() => {
+                                    localStorage.removeItem('token')
+                                    localStorage.removeItem('user')
+                                    localStorage.removeItem('refreshToken')
+                                    navigate(0)
+                                }}>Sign out</a>
+                            </div>
+                        </div>
+                        : <div className='login'>
+                            <Link to='/login'>
+                                <i className="fa fa-sign-in" style={{ 'fontSize': '48px' }}></i>
+                            </Link>
+                        </div>
+                    }
                 </ul>
             </div>
         </div>

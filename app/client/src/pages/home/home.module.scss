@@ -1,0 +1,22 @@
+@use '../../scss/' as *;
+
+.moviesList {
+    padding: 3rem;
+
+    .title {
+        @include flex(center, space-between);
+
+        div {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        button {
+            border: 2px solid white;
+            background-color: transparent;
+            font-size: 1rem;
+        }
+
+        margin-bottom: 1rem;
+    }
+}

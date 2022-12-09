@@ -1,47 +1,50 @@
 @use '../../scss/' as *;
 
-.login{
+.login {
     position: absolute;
     width: 100%;
     height: 100%;
     @include flex(center, unset);
-    
-    
+
     .form {
         padding: 10px;
         @include flex(center, center);
         flex-direction: column;
         margin-left: 20%;
-        
-        .logo{
+
+        .logo {
             @include flex(center, center);
             flex-direction: column;
-            img{
+
+            img {
                 height: 100px;
-                @include mobile{
+
+                @include mobile {
                     height: 70px;
                 }
             }
-            margin-bottom: 30px;
-        }
-        
-        .title{ 
-            div:first-child{
-                font-size: 36px;
-                font-weight: bolder;
-                @include mobile{
-                    font-size: 24px;
-                }
-            }
-            
-            div:nth-child(2) {
-                text-align: center;
-            }
-            
+
             margin-bottom: 30px;
         }
 
-        input{
+        .title {
+            div:first-child {
+                font-size: 36px;
+                font-weight: bolder;
+
+                @include mobile {
+                    font-size: 24px;
+                }
+            }
+
+            div:nth-child(2) {
+                text-align: center;
+            }
+
+            margin-bottom: 30px;
+        }
+
+        input {
             border: 0;
             margin-bottom: 30px;
             height: 70px;
@@ -51,71 +54,76 @@
             color: white;
             border-bottom: 1px solid white;
             background: transparent;
-            @include mobile{
+
+            @include mobile {
                 height: 40px;
                 padding: 5px;
                 font-size: 20px;
                 width: 60%;
             }
         }
-        
-        .forgot{
+
+        .err {
+            width: 80%;
+            padding: 10px;
+            color: red;
+        }
+
+        .forgot {
             cursor: pointer;
-            &:hover{
+
+            &:hover {
                 text-decoration: underline;
             }
         }
-        
-        .loginBtn{
+
+        .loginBtn {
             margin: 20px;
             background-color: red;
             border: 0;
             border-radius: 10px;
-            
             height: 50px;
             width: 80%;
             color: rgb(0, 0, 0);
             font-size: 36px;
             cursor: pointer;
-            
-            &:hover{
+
+            &:hover {
                 color: white;
             }
 
-            @include mobile{
+            @include mobile {
                 font-size: 24px;
                 width: 60%;
             }
         }
-        
+
         .signup {
             cursor: pointer;
         }
-        
-        @include mobile{
+
+        @include mobile {
             width: 100%;
             margin: 0;
         }
-        
+
     }
 
     .background {
-        @include mobile{
+        @include mobile {
             display: none;
         }
+
         position: relative;
         width: 40%;
         margin-left: auto;
         height: 100vh;
-        
+
         img {
             position: absolute;
             height: 100%;
             right: 0;
-            -webkit-mask-image: -webkit-linear-gradient(right, rgba(0, 0, 0, 1), (rgba(0, 0, 0, 0.02)));
-            
+            mask-image: -webkit-linear-gradient(right, rgba(0, 0, 0, 1), (rgba(0, 0, 0, 0.02)));
         }
     }
-
-    
 }

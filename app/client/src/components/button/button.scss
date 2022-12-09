@@ -1,0 +1,22 @@
+@use '../../scss/' as *;
+
+button {
+    cursor: pointer;
+    font-family: $font-family;
+}
+
+.btn {
+    border: 1px solid transparent;
+    background-color: $main-color;
+    color: $white;
+    border-radius: $border-radius;
+    padding: 0.5rem 1.8rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    transition: box-shadow 0.3s ease;
+    position: relative;
+}
+
+.btn:hover {
+    box-shadow: 0px 0px 5px 5px #ffffff4d;
+}

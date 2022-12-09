@@ -4,7 +4,24 @@ const userService = require('../services/user.services')
 
 const { SALT_ROUNDS } = require('../config/auth.config')
 
-
+exports.getUserInfo = async (req, res) => {
+    const userId = req.query.id
+    const results = await userService.getUserById(userId)
+    if(!results){
+        return res.json({
+            message: 'user not found',
+            result: false
+        })
+    } else{
+        const result = results[0]
+        const userPublicInfo = {
+            id: result.id,
+            name: result.name,
+            role: result.role
+        }
+        return res.json(userPublicInfo)
+    }
+}
 
 exports.deleteUser = async (req, res) => {
     const user = req.user
@@ -16,14 +33,14 @@ exports.deleteUser = async (req, res) => {
     const result = await userService.getUserById(id)
     if (!result) {
         return res.json({
-            message: "user not found",
-            result: false
+            message: 'user not found',
+            result: false,
         })
     } else {
         await userService.deleteById(id)
         return res.json({
             message: `User with id ${id} has been deleted`,
-            result: true
+            result: true,
         })
     }
 }
@@ -50,7 +67,7 @@ exports.changePassword = async (req, res) => {
 
     res.json({
         message: 'Password changed successfully',
-        result: true
+        result: true,
     })
 }
 
@@ -63,6 +80,6 @@ exports.changeName = async (req, res) => {
 
     res.json({
         message: 'Name changed successfully',
-        result: true
+        result: true,
     })
 }

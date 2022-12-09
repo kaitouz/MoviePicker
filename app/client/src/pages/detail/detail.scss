@@ -1,0 +1,260 @@
+@use '../../scss/' as *;
+
+.banner {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    @include tablet {
+        height: 50vh;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        @include overlay();
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        background-image: linear-gradient(to top, $body-bg, rgba($black, 0));
+    }
+}
+
+.movie-overview {
+    @include flex(unset, center);
+    position: relative;
+    max-width: 1260px;
+    margin: 0 auto;
+    margin-top: -55vh;
+    font-size: 1.5rem;
+
+    @include tablet {
+        margin-top: -30vh;
+    }
+
+    &__poster {
+        height: 50vh;
+        border-radius: $border-radius;
+        box-shadow: 0 0 8px 5px rgba($white, 0.1);
+        overflow: hidden;
+        width: 30%;
+        max-width: 300px;
+
+        @include tablet {
+            height: 30vh;
+        }
+
+        @include mobile {
+            display: none;
+        }
+
+        &__img {
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    &__info {
+        width: 70%;
+        padding-left: 5rem;
+
+        @include tablet {
+            width: 40%;
+        }
+
+        @include mobile {
+            width: 100%;
+        }
+
+        .genres {
+            @include flex(unset, unset);
+            font-weight: 500;
+            flex-wrap: wrap;
+
+            &__item {
+                margin-right: 1rem;
+                margin-top: 1rem;
+                padding: 5px 15px;
+                border: 2px solid white;
+                border-radius: $border-radius;
+                box-shadow: 0 0 8px 5px rgba($white, 0.1);
+                background-color: rgba($color: black, $alpha: 0.1);
+                user-select: none;
+                cursor: pointer;
+
+                &:hover {
+                    box-shadow: 0 0 8px 5px rgba($white, 0.3);
+                }
+
+                &:active {
+                    background-color: rgba($color: white, $alpha: 0.3);
+                }
+            }
+        }
+
+        .score {
+            user-select: none;
+            margin-top: 3rem;
+
+            &__popcorn {
+                display: inline-block;
+                width: fit-content;
+                @include flex(center, unset);
+
+                img {
+                    cursor: pointer;
+                    width: 3rem;
+                }
+
+                .rating {
+                    div:first-child {
+                        border-radius: 10px 0 0 10px;
+                    }
+
+                    div:last-child {
+                        border-radius: 0 10px 10px 0;
+                    }
+
+                    div {
+                        cursor: pointer;
+                        text-align: center;
+                        display: inline-block;
+                        background-color: rgba(256, 256, 256, 0.3);
+                        width: 0px;
+                        opacity: 0;
+                        visibility: hidden;
+                        transition: width 0.6s ease-out, opacity 0.6s ease-out;
+
+                        &:hover {
+                            font-weight: 700;
+                            background-color: rgba($color: white, $alpha: 0.4);
+                        }
+
+                        &:active {
+                            background-color: rgba($color: white, $alpha: 0.5);
+                        }
+                    }
+                }
+
+                &:hover {
+                    .rating {
+                        div {
+                            width: 40px;
+                            visibility: visible;
+                            opacity: 1;
+                        }
+                    }
+                }
+
+                &:active {
+                    .rating {
+                        display: none;
+                    }
+                }
+            }
+
+            &__user-rating {
+                width: 3rem;
+                text-align: center;
+
+            }
+
+            .notification {
+                font-size: 1rem;
+                background-color: rgb(67, 165, 67);
+                padding: 5px 20px;
+                position: fixed;
+                width: 100%;
+                top: 0;
+                left: 0;
+                transform: translateY(-50px);
+                opacity: 0;
+                visibility: hidden;
+                z-index: 9;
+                display: none;
+                animation: appear 5s linear;
+            }
+
+            @keyframes appear {
+                0% {
+                    visibility: visible;
+                    opacity: 0;
+                }
+
+                10% {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+
+                80% {
+                    transform: translateY(0);
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+
+            .active {
+                display: block;
+            }
+        }
+    }
+}
+
+.movie-content {
+    position: relative;
+    margin-top: 5rem;
+    padding: 2rem 5rem;
+    font-size: 1.5rem;
+
+    @include mobile {
+        padding: 2rem 1rem;
+    }
+
+    &__info {
+        margin-top: 3rem;
+
+        @include flex(unset, space-between);
+        flex-wrap: wrap;
+
+        &>* {
+            width: 45%;
+            min-width: 350px;
+            margin: 0.5rem 0;
+
+            h1 {
+                margin-bottom: 1rem;
+            }
+
+            @include tablet {
+                width: 100%;
+            }
+        }
+    }
+}
+
+.similar-movie-list {
+    position: relative;
+    margin-top: 2rem;
+    padding: 0rem 5rem;
+    font-size: 1.5rem;
+
+    h2 {
+        margin-bottom: 1rem;
+    }
+}

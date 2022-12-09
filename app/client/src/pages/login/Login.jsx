@@ -1,34 +1,76 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-
 
 import classes from './login.module.scss'
 
+import authAPI from '../../api/serverAPI/authAPI'
+import tmdbAPI from '../../api/tmdbAPI'
+import { config } from '../../api/tmdbConfig'
 import logo from '../../assets/logo.png'
-import { useEffect } from 'react'
-import { useState } from 'react'
 
-let URL ='https://www.themoviedb.org/t/p/w600_and_h900_bestv2/vUUqzWa2LnHIVqkaKVlVGkVcZIW.jpg'
-//URL = 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/uez7jwNd3oO87ceRr6nX8yCQvsL.jpg'
-
-
-//props.action = 'login' || 'signup'
-const Login = (props) => {
+const Login = () => {
   const navigate = useNavigate()
-  
-  const [name, setName] = useState(null)
+  const [bgURL, setBgURL] = useState(null)
   const [email, setEmail] = useState(null)
   const [password, setPassword] = useState(null)
-  const [rePassword, setRePassword] = useState(null)
-  
+
   useEffect(() => {
-    //get background
-    //add event onchange of fields
-    //remove event when component unmount
+    document.getElementById('email').focus()
+    let intervalId
+    tmdbAPI.getMoviesList('popular', {}).then(res => {
+      const imgList = res.results.map(x => config.originalImage(x.poster_path))
+      let i = Date.now() % 20
+      setBgURL(imgList[i])
+      intervalId = setInterval(
+        () => {
+          setBgURL(imgList[i++ % 20])
+        }
+        , 5000)
+    })
+
+    return () => clearInterval(intervalId)
   }, [])
-  
+
+  const submitOnEnter = e => {
+    if (e.key == 'Enter') {
+      submitForm()
+    }
+  }
+
+  const showErr = errMessage => document.getElementById('err-msg').innerHTML = errMessage
+
   const submitForm = () => {
-    alert('Tính năng chưa code ))')
+    console.log('processing..')
+    if (email == null)
+      document.getElementById('email-err').innerHTML = 'Please enter email'
+    else document.getElementById('email-err').innerHTML = null
+
+    if (password == null)
+      document.getElementById('pass-err').innerHTML = 'Please enter password'
+    else document.getElementById('pass-err').innerHTML = null
+
+    if (email == null || password == null) return
+
+    authAPI.login(email, password)
+      .then(res => {
+        const user = {
+          id: res.data.user.id,
+          name: res.data.user.name,
+          email: res.data.user.email,
+          role: res.data.user.role
+        }
+
+        localStorage.setItem('user', JSON.stringify(user))
+        localStorage.setItem('token', res.data.accessToken)
+        localStorage.setItem('refreshToken', res.data.refreshToken)
+
+        console.log(res.data.msg)
+        navigate('/')
+      })
+      .catch(err => {
+        showErr(err.response.data)
+        console.log(err)
+      })
   }
 
   return (
@@ -36,35 +78,54 @@ const Login = (props) => {
       <div className={classes.form}>
         <Link to='/'>
           <div className={classes.logo}>
-            <img src={logo} alt='logo'/>
+            <img src={logo} alt='logo' />
             <p>Popcorn</p>
           </div>
         </Link>
 
         <div className={classes.title}>
-          {props.action === 'login' ? <div>Welcome back!</div> : <div>Create an account</div>}
-          {props.action === 'login' ? <div>Welcome back! Please enter your details.</div> : <div>Let's get started</div>}
+          <div>Welcome back!</div>
+          <div>Welcome back! Please enter your details.</div>
         </div>
 
-        {props.action === 'signup' ? <input type='name' name='name' placeholder='Name'/> : null}
-        <input type='email' name='email' placeholder='Email'/>
-        <input type='password' name='password' placeholder='Password' />
-        {props.action === 'signup' ? <input type='password' name='re-password' placeholder='Repeat password' /> : null}
+        <input id='email'
+          type='email'
+          name='email'
+          placeholder='Email'
+          autoFocus='autofocus'
+          onChange={e => { setEmail(e.target.value) }}
+          onKeyDown={submitOnEnter}
+        />
+        <div id='email-err' className={classes.err}></div>
 
-        {props.action === 'login' ? <div className={classes.forgot}>Forgot password</div> : null}
-        <button className={classes.loginBtn} onClick={submitForm}>{props.action === 'login' ? 'Log in' : 'Create account'}</button>
-        {
-          props.action === 'login' ? 
-            <div>Don't have an account? <b className={classes.signup} onClick={() => { navigate('/signup') }}>Sign up</b> for free</div>:
-            <div>Already have an account? <b className={classes.signup} onClick={() => { navigate('/login') }}>Log in</b></div>
-        }
+        <input id='password'
+          type='password'
+          name='password'
+          placeholder='Password'
+          onChange={e => setPassword(e.target.value)}
+          onKeyDown={submitOnEnter}
+        />
+        <div id='pass-err' className={classes.err}></div>
 
-       
+        <div id='err-msg' className={classes.err}></div>
+
+        <div className={classes.forgot}>Forgot password</div>
+
+        <button className={classes.loginBtn}
+          onClick={submitForm}>
+          Log in
+        </button>
+
+        <div>Don&apos;t have an account? <b className={classes.signup}
+          onClick={() => { navigate('/signup') }}>
+          Sign up
+        </b> for free
+        </div>
       </div>
 
       <div className={classes.background}>
-        <img src={URL} alt='background_image'/>
-      </div>  
+        <img src={bgURL} alt='use_VPN' />
+      </div>
     </div>
   )
 }

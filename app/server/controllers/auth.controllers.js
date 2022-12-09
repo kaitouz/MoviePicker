@@ -4,8 +4,12 @@ const bcrypt = require('bcrypt')
 const userService = require('../services/user.services')
 const authService = require('../services/auth.services')
 
-const {SALT_ROUNDS} = require('../config/auth.config')
-const { accessTokenSecret, accessTokenLife, refreshTokenSize } = require('../config/jwt.config')
+const { SALT_ROUNDS } = require('../config/auth.config')
+const {
+    accessTokenSecret,
+    accessTokenLife,
+    refreshTokenSize,
+} = require('../config/jwt.config')
 
 exports.register = async (req, res) => {
     const email = req.body.email
@@ -16,13 +20,15 @@ exports.register = async (req, res) => {
         const newUser = {
             name: req.body.name,
             email: email,
-            password: hashPassword
+            password: hashPassword,
         }
         const createUser = await userService.createUser(newUser)
         if (!createUser) {
             return res
                 .status(400)
-                .send('There was an error during account creation, please try again.')
+                .send(
+                    'There was an error during account creation, please try again.'
+                )
         }
         const result = await userService.getUserByEmail(email)
         return res.send(result)
@@ -41,21 +47,19 @@ exports.login = async (req, res) => {
 
     const isPasswordValid = bcrypt.compareSync(password, user.password)
     if (!isPasswordValid) {
-        return res.status(401).send('Wrong password.');
+        return res.status(401).send('Wrong password.')
     }
 
     const dataForAccessToken = {
-        email: email
+        email: email,
     }
     const accessToken = await authService.generateToken(
         dataForAccessToken,
         accessTokenSecret,
         accessTokenLife
     )
-    if (!accessToken){
-        return res
-            .status(401)
-            .send('Login failed, please try again.')
+    if (!accessToken) {
+        return res.status(401).send('Login failed, please try again.')
     }
 
     let refreshToken = randToken.generate(refreshTokenSize) // tạo 1 refresh token ngẫu nhiên
@@ -64,26 +68,26 @@ exports.login = async (req, res) => {
         await userService.updateRefreshToken(user.id, refreshToken)
     } else {
         // Nếu user này đã có refresh token thì lấy refresh token đó từ database
-        refreshToken = user.refreshToken;
+        refreshToken = user.refreshToken
     }
 
     return res.json({
         msg: 'Login successfully',
         accessToken,
         refreshToken,
-        user
+        user,
     })
 }
 
 exports.refreshToken = async (req, res) => {
     // Lấy access token từ header
-    const accessTokenFromHeader = req.headers.x_authorization;
+    const accessTokenFromHeader = req.headers.x_authorization
     if (!accessTokenFromHeader) {
         return res.status(400).send('Access token not found.')
     }
 
     // Lấy refresh token từ body
-    const refreshTokenFromBody = req.body.refreshToken;
+    const refreshTokenFromBody = req.body.refreshToken
     if (!refreshTokenFromBody) {
         return res.status(400).send('Refresh token not found.')
     }
@@ -99,21 +103,19 @@ exports.refreshToken = async (req, res) => {
     }
 
     const email = decoded.payload.email
-    
 
     const user = await userService.getUserByEmail(email)
     if (!user) {
-        return res.status(401).send('User does not exist.');
+        return res.status(401).send('User does not exist.')
     }
-    
 
     if (refreshTokenFromBody !== user.refresh_token) {
-        return res.status(400).send('Refresh token is not valid.');
+        return res.status(400).send('Refresh token is not valid.')
     }
 
     // Tạo access token mới
     const dataForAccessToken = {
-        email: email
+        email: email,
     }
 
     const accessToken = await authService.generateToken(
