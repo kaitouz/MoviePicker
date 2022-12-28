@@ -16,7 +16,7 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(async config => config)
 
 axiosClient.interceptors.response.use(res => {
-    //console.log(res.request.responseURL)
+    console.log(res.request.responseURL)
     if (res && res.data)
         return res.data
     return res
@@ -58,6 +58,14 @@ const tmdbAPI = {
     search: (cate, params) => {
         const url = 'search/' + category[cate];
         return axiosClient.get(url, { params });
+    },
+    searchByGenres: (cate, genres, page) => {
+        const url = `discover/${category[cate]}/`
+        const params = {
+            with_genres: genres,
+            page: page
+        }
+        return axiosClient.get(url, { params })
     },
     detail: (cate, id, params) => {
         const url = category[cate] + '/' + id;

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
 import './detail.scss'
 
 import tmdbAPI from '../../api/tmdbAPI'
 import { config } from '../../api/tmdbConfig'
 import ratingAPI from '../../api/serverAPI/ratingAPI'
-
 import logo from '../../assets/logo.png'
 import VideoList from '../../components/videoList/VideoList'
 import MovieList from '../../components/movieList/MovieList'
@@ -14,6 +13,7 @@ import CastList from '../../components/castList/CastList'
 import Comments from '../../components/comments/Comments'
 
 const Detail = () => {
+  const navigate = useNavigate()
   const { category, id } = useParams()
   const [item, setItem] = useState(null)
   const [popcornScore, setPopcornScore] = useState(null)
@@ -59,6 +59,12 @@ const Detail = () => {
     ratingAPI.rateMovie(id, score, token).catch(err => console.log(err))
   }
 
+  const searchByGenre = (genre_id) => {
+    console.log('search', genre_id)
+    tmdbAPI.searchByGenres(category, genre_id).then(res => console.log(res))
+    navigate(`/${category}/genre/${genre_id}`)
+  }
+
 
   return (
     <>
@@ -80,7 +86,7 @@ const Detail = () => {
                 <div className="genres">
                   {
                     item.genres && item.genres.slice(0, 5).map((genre, i) => (
-                      <span key={i} className="genres__item">{genre.name}</span>
+                      <span key={i} className="genres__item" onClick={() => searchByGenre(genre.id)}>{genre.name}</span>
                     ))
                   }
                 </div>

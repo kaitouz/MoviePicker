@@ -1,0 +1,13 @@
+@use '../../scss/' as *;
+
+.catalog {
+    padding: $header-height 0;
+}
+
+.container {
+    padding: 0 10%;
+
+    @include tablet {
+        padding: 0 5%;
+    }
+}

@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Routes as Switch } from 'react-router-dom'
 
 import Home from '../pages/home/Home'
-import Catalog from '../pages/Catalog'
+import Catalog from '../pages/catalog/Catalog'
 import Detail from '../pages/detail/Detail'
 import Login from '../pages/login/Login'
 import Signup from '../pages/signup/Signup'
@@ -13,7 +13,11 @@ const Routes = () => {
             <Switch>
                 <Route
                     path='/:category/search/:keyword'
-                    element={<Catalog title='Movies' />}
+                    element={<Catalog title='movies' />}
+                />
+                <Route
+                    path='/:category/genre/:id'
+                    element={<Catalog title='genre' />}
                 />
                 <Route
                     path='/:category/:id'

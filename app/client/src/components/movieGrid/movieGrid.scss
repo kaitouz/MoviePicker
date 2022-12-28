@@ -1,0 +1,34 @@
+@use "../../scss/" as *;
+
+.movie-grid {
+    &__title {
+        margin: 1rem;
+        font-size: 1.5rem;
+    }
+
+    &__items {
+        width: 100%;
+        @include flex(top, unset);
+        flex-flow: row wrap;
+
+        &__element {
+            width: calc(100%/5);
+            padding: 0.5rem 1rem;
+
+            @include tablet {
+                width: calc(100%/3);
+            }
+
+            @include mobile {
+                width: 50%;
+            }
+        }
+
+        &__load-more {
+            .btn {
+                background-color: transparent;
+                border: 2px solid white;
+            }
+        }
+    }
+}
