@@ -13,6 +13,7 @@ const Login = () => {
   const [bgURL, setBgURL] = useState(null)
   const [email, setEmail] = useState(null)
   const [password, setPassword] = useState(null)
+  const [processing, setProcessing] = useState(false)
 
   useEffect(() => {
     document.getElementById('email').focus()
@@ -51,6 +52,7 @@ const Login = () => {
 
     if (email == null || password == null) return
 
+    setProcessing(true)
     authAPI.login(email, password)
       .then(res => {
         const user = {
@@ -68,6 +70,7 @@ const Login = () => {
         navigate('/')
       })
       .catch(err => {
+        setProcessing(false)
         showErr(err.response.data)
         console.log(err)
       })
@@ -109,11 +112,15 @@ const Login = () => {
 
         <div id='err-msg' className={classes.err}></div>
 
+
+
         <div className={classes.forgot}>Forgot password</div>
 
         <button className={classes.loginBtn}
           onClick={submitForm}>
-          Log in
+          {
+            processing ? <div className={classes.processing}>Please wait</div> : 'Log in'
+          }
         </button>
 
         <div>Don&apos;t have an account? <b className={classes.signup}

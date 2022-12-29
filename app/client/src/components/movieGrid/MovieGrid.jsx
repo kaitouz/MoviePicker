@@ -61,7 +61,7 @@ const MovieGrid = () => {
     }
 
     const title = () => {
-        if (page === 0) return keyword ? 'Searching...' : 'Loading...'
+        if (page === 0) return keyword ? 'Searching' : 'Loading'
         if (items.length === 0) return "Sorry, we couldn't found any results."
         if (id === undefined && keyword === undefined) return category === 'movie' ? 'Upcomming movies:' : 'Popular TV shows'
         return 'Search results for ' + (category === 'movie' ? 'movies' : 'TV shows') + ' with ' + (id ? 'genre ' : 'keyword ')
@@ -78,7 +78,9 @@ const MovieGrid = () => {
 
     return (
         <div className='movie-grid'>
-            <div className='movie-grid__title'>{title()}<b>{getPattern()}</b></div>
+            <div className={`movie-grid__title ${page === 0 ? 'active' : null}`}>
+                {title()}<b>{getPattern()}</b>
+            </div>
             <div className="movie-grid__items">
                 {
                     items.map((item, i) =>

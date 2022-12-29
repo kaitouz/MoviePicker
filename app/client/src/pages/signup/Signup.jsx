@@ -16,6 +16,7 @@ const Signup = () => {
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
     const [rePassword, setRePassword] = useState(null)
+    const [processing, setProcessing] = useState(false)
 
     useEffect(() => {
         document.getElementById('name').focus()
@@ -93,6 +94,7 @@ const Signup = () => {
 
         if (!shouldFormSubmit) return
 
+        setProcessing(true)
         authAPI.register(name, email, password)
             .then(() => {
                 console.log('Successfully register')
@@ -113,6 +115,7 @@ const Signup = () => {
                     })
             })
             .catch(err => {
+                setProcessing(false)
                 showErr(err.response.data)
             })
     }
@@ -140,8 +143,6 @@ const Signup = () => {
                     onKeyDown={submitOnEnter}
                 />
                 <div id='name-err' className={classes.err}></div>
-
-
                 <input id='email'
                     type='email'
                     name='email'
@@ -174,7 +175,9 @@ const Signup = () => {
 
                 <button className={classes.signupBtn}
                     onClick={submitForm}>
-                    Create account
+                    {
+                        processing ? <div className={classes.processing}>Please wait</div> : 'Create account'
+                    }
                 </button>
 
                 <div>Already have an account? <b className={classes.login}

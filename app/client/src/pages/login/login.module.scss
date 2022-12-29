@@ -69,6 +69,8 @@
             color: red;
         }
 
+
+
         .forgot {
             cursor: pointer;
 
@@ -84,17 +86,23 @@
             border-radius: 10px;
             height: 50px;
             width: 80%;
-            color: rgb(0, 0, 0);
+            color: white;
             font-size: 36px;
+            transition: background-color 0.3s ease;
             cursor: pointer;
 
             &:hover {
-                color: white;
+                background-color: rgba(red, 0.7);
             }
 
             @include mobile {
                 font-size: 24px;
                 width: 60%;
+            }
+
+            .processing {
+                font-size: smaller;
+                @include processing;
             }
         }
 

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 
 import './detail.scss'
 
+import errPoster from '../../assets/err_poster.png'
 import tmdbAPI from '../../api/tmdbAPI'
 import { config } from '../../api/tmdbConfig'
 import ratingAPI from '../../api/serverAPI/ratingAPI'
@@ -20,7 +21,6 @@ const Detail = () => {
   const [userRating, setUserRating] = useState(null)
   const [cate, setCate] = useState(category)
   const [movieId, setMovieId] = useState(id)
-
 
   useEffect(() => {
     const getDetail = async () => {
@@ -65,6 +65,7 @@ const Detail = () => {
     navigate(`/${category}/genre/${genre_id}`)
   }
 
+  const getBgURL = () => (item.backdrop_path || item.poster_path) ? config.originalImage(item.backdrop_path || item.poster_path) : errPoster
 
   return (
     <>
@@ -74,7 +75,7 @@ const Detail = () => {
             <div className="banner" style={{ backgroundImage: `url(${config.originalImage(item.backdrop_path || item.poster_path)})` }}></div>
             <div className="movie-overview">
               <div className="movie-overview__poster">
-                <div className="movie-overview__poster__img" style={{ backgroundImage: `url(${config.originalImage(item.poster_path || item.backdrop_path)})` }}></div>
+                <div className="movie-overview__poster__img" style={{ backgroundImage: `url(${getBgURL()})` }}></div>
               </div>
               <div className="movie-overview__info">
                 <h1 className="title">

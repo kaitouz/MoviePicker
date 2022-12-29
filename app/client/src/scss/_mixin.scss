@@ -7,3 +7,20 @@
 @mixin overlay {
     background-color: rgba($color: #000000, $alpha: 0.6);
 }
+
+@mixin processing {
+    &:after {
+        content: ' . ';
+        animation: loading 1.5s infinite;
+
+        @keyframes loading {
+            33% {
+                content: ' . .';
+            }
+
+            66% {
+                content: ' . . .'
+            }
+        }
+    }
+}
