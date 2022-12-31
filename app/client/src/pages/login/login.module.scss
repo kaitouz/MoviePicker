@@ -100,9 +100,8 @@
                 width: 60%;
             }
 
-            .processing {
-                font-size: smaller;
-                @include processing;
+            &>* {
+                justify-content: center;
             }
         }
 

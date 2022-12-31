@@ -5,12 +5,14 @@ import PropTypes from 'prop-types'
 import './comments.scss'
 
 import reviewAPI from '../../api/serverAPI/reviewAPI'
-import CommentCard from '../commentCard/CommentCard'
+import CommentCard, { PseudoComment } from '../commentCard/CommentCard'
+
 
 const Comments = (props) => {
     const [user, setUser] = useState(null)
     const [comments, setComments] = useState([])
     const [inputCmt, setInputCmt] = useState(null)
+    const [processPosting, setProcessPosting] = useState(false)
 
     const navigate = useNavigate()
 
@@ -19,6 +21,7 @@ const Comments = (props) => {
             const res = await reviewAPI.getMovieReviews(props.id)
             setComments(res.data.slice(0, 10))
         }
+        
 
         fetchComments()
         setUser(JSON.parse(localStorage.getItem('user')))
@@ -34,20 +37,26 @@ const Comments = (props) => {
         if (inputCmt === null || inputCmt === '') return
         const token = localStorage.getItem('token')
         if (token) {
-            const inputField = document.getElementById('comment-field')
-            inputField.value = ''
-            reviewAPI.adddReview(props.id, inputCmt, token).then(
+            
+            setProcessPosting(true)
+            reviewAPI.adddReview(props.id, inputCmt, token)
+            .then(
                 res => {
                     setComments([...comments, { ...res.data.result, time: new Date().toISOString() }])
+                    setProcessPosting(false)
                 }
-            )
+            ).catch(err => {
+                setProcessPosting(false)
+                console.log(err)
+            })
+            setInputCmt('')
+            const inputField = document.getElementById('comment-field')
+            inputField.value = ''
         }
     }
 
     const onDeleteSuccess = (i) => {
-        let tmpComments = [...comments]
-        tmpComments.splice(i, 1)
-        setComments(tmpComments)
+        setComments(comments.filter(cmt => cmt.id != i))
     }
 
     const onEditSuccess = async () => {
@@ -64,12 +73,18 @@ const Comments = (props) => {
                     comments.map((item, i) => (
                         <CommentCard item={item}
                             key={i}
-                            onDeleteSuccess={() => onDeleteSuccess(i)}
+                            onDeleteSuccess={() => onDeleteSuccess(item.id)}
                             onEditSuccess={onEditSuccess}
                         ></CommentCard>
                     ))
                 }
+
+                
             </div>
+
+            {
+                processPosting ? <PseudoComment></PseudoComment> : null
+            }
 
             <div className="comments__input">
                 {

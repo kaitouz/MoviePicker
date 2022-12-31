@@ -12,6 +12,7 @@ import VideoList from '../../components/videoList/VideoList'
 import MovieList from '../../components/movieList/MovieList'
 import CastList from '../../components/castList/CastList'
 import Comments from '../../components/comments/Comments'
+import Loading from '../../components/loading/Loading'
 
 const Detail = () => {
   const navigate = useNavigate()
@@ -21,9 +22,14 @@ const Detail = () => {
   const [userRating, setUserRating] = useState(null)
   const [cate, setCate] = useState(category)
   const [movieId, setMovieId] = useState(id)
+  const [processRating, setProcessRating] = useState(true)
+  const [processAverageScore, setProcessAverageScore] = useState(true)
 
   useEffect(() => {
     const getDetail = async () => {
+      setProcessRating(true)
+      setProcessAverageScore(true)
+
       tmdbAPI.detail(category, id, { params: {} }).then(response => { setItem(response) })
       const res = await ratingAPI.getMovieRatings(id)
       const ratings = res.data
@@ -38,10 +44,14 @@ const Detail = () => {
         })
         setPopcornScore(Math.round(sum / ratings.length * 10) / 10)
       }
+
+      setProcessRating(false)
+      setProcessAverageScore(false)
     }
 
     setCate(category)
     setMovieId(id)
+    
     getDetail();
   }, [category, id])
 
@@ -55,8 +65,17 @@ const Detail = () => {
       }
       return
     }
-    setUserRating(score)
-    ratingAPI.rateMovie(id, score, token).catch(err => console.log(err))
+ 
+    setProcessRating(true)
+    ratingAPI.rateMovie(id, score, token)
+    .then(res => {
+      setProcessRating(false)
+      setUserRating(res.data.result.score)
+    })
+    .catch(err => {
+      setProcessRating(false)
+      console.log(err)
+    })
   }
 
   const searchByGenre = (genre_id) => {
@@ -104,10 +123,15 @@ const Detail = () => {
                   </div>
                   <div className="notification" id='rating-alert'>Please login or sign up to rate movie</div>
                   <div className='score__user-rating'>
-                    {userRating ? userRating : '__'}
+                    {processRating ? <Loading></Loading> : 
+                    (userRating ? userRating : '__')}
                   </div>
-                  <div>
-                    Average score: {popcornScore ? popcornScore : '__'}
+                  <div className='score__average'>
+                    {'Average Score: '}
+                    {
+                      processAverageScore ? <Loading></Loading>
+                        : (popcornScore ? popcornScore : 'unrated')
+                    }
                   </div>
                 </div>
               </div>

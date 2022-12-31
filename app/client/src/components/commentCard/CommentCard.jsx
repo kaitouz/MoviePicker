@@ -6,26 +6,36 @@ import './commentCard.scss'
 
 import userAPI from '../../api/serverAPI/userAPI'
 import reviewAPI from '../../api/serverAPI/reviewAPI'
+import Loading from '../loading/Loading'
 
 const CommentCard = (props) => {
   const item = props.item
   const user = JSON.parse(localStorage.getItem('user'))
   const [reviewer, setReviewer] = useState(null)
+  const [processDelete, setProcessDelete] = useState(false)
 
   const content = useRef(null)
 
   useEffect(() => {
-    userAPI.getUserInfo(item.user_id).then(res => {
-      setReviewer(res.data)
-    })
-  }, [])
+    if (user && user.id == item.user_id) setReviewer(user)
+    else {
+      userAPI.getUserInfo(item.user_id).then(res => {
+        setReviewer(res.data)
+      })
+    }
+  }, [props])
 
   const deleteComment = () => {
     const token = localStorage.getItem('token')
     if (token) {
+      setProcessDelete(true)
       reviewAPI.deleteReview(item.id, token).then(() => {
         if (props.onDeleteSuccess) props.onDeleteSuccess()
-      }).catch(err => console.log(err))
+        setProcessDelete(false)
+      }).catch(err => {
+        console.log(err)
+        setProcessDelete(false)
+      })
     }
   }
 
@@ -78,8 +88,13 @@ const CommentCard = (props) => {
         }
         {user && reviewer && (reviewer.id === user.id || user.role === 'admin') ?
           <div className="delete" onClick={deleteComment}>
-            <FaTrashAlt />
-            <p>Delete</p>
+            {
+              processDelete ? <Loading></Loading> 
+                : <>
+                    <FaTrashAlt />
+                    <p>Delete</p>
+                  </>
+            }
           </div> : null
         }
       </div>
@@ -112,6 +127,46 @@ const CommentCard = (props) => {
       </div>
     </div>
   )
+}
+
+export const PseudoComment = () => {
+  const user = JSON.parse(localStorage.getItem('user'))
+  return (
+    <>
+      {user ? <div className="comment-card">
+        <div className="comment-card__button">
+          <div className="edit">
+            <p>Edit</p>
+            <FaEdit />
+          </div>
+
+          <div className="delete">
+            <FaTrashAlt />
+            <p>Delete</p>
+          </div>
+        </div>
+        <div className="comment-card__header">
+          <h3>{user.name}</h3>
+          {
+            user.role === 'admin' ?
+              <div className="role"> {user.role} </div>
+              : null
+          }
+        </div>
+        <div className='comment-card__time'>
+         Just now
+        </div>
+        <div className="comment-card__content">
+          <div className='pseudo-comment'>
+            <Loading>Posting</Loading>
+          </div>
+        </div>
+      </div> : null}
+    </>
+   
+  
+  )
+
 }
 
 CommentCard.propTypes = {

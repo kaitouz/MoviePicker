@@ -7,6 +7,7 @@ import tmdbAPI, { movieType, tvType } from '../../api/tmdbAPI';
 import { tvGenres, movieGenres } from '../../api/tmdbConfig';
 import MovieCard from '../movieCard/MovieCard';
 import Button from '../button/Button';
+import Loading from '../loading/Loading';
 
 const MovieGrid = () => {
     const { category, id, keyword } = useParams();
@@ -61,10 +62,14 @@ const MovieGrid = () => {
     }
 
     const title = () => {
-        if (page === 0) return keyword ? 'Searching' : 'Loading'
+        if (page === 0) return null
         if (items.length === 0) return "Sorry, we couldn't found any results."
-        if (id === undefined && keyword === undefined) return category === 'movie' ? 'Upcomming movies:' : 'Popular TV shows'
-        return 'Search results for ' + (category === 'movie' ? 'movies' : 'TV shows') + ' with ' + (id ? 'genre ' : 'keyword ')
+        if (id === undefined && keyword === undefined) 
+            return category === 'movie' ? 'Upcomming movies:' : 'Popular TV shows'
+        return 'Search results for ' 
+            + (category === 'movie' ? 'movies' : 'TV shows') 
+            + ' with ' 
+            + (id ? 'genre ' : 'keyword ')
     }
 
     const getPattern = () => {
@@ -78,8 +83,9 @@ const MovieGrid = () => {
 
     return (
         <div className='movie-grid'>
-            <div className={`movie-grid__title ${page === 0 ? 'active' : null}`}>
+            <div className='movie-grid__title'>
                 {title()}<b>{getPattern()}</b>
+                {page === 0 ? <Loading>{keyword ? 'Searching' : 'Loading'}</Loading>:null}
             </div>
             <div className="movie-grid__items">
                 {

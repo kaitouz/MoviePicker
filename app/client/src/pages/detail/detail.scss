@@ -172,7 +172,23 @@
             &__user-rating {
                 width: 3rem;
                 text-align: center;
+                height: 2.5rem;
+                position: relative;
 
+                .loading{
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    justify-content: center;
+                }
+            }
+
+            &__average{
+                display: flex;
+                .loading{
+                    margin-left: 0.5rem;
+                }
             }
 
             .notification {

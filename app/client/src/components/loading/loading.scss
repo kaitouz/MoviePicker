@@ -1,0 +1,17 @@
+@use '../../scss/' as *;
+
+.loading{
+    user-select: none;
+    @include flex(center, unset);
+
+    img{
+        max-height: 1.5rem;
+        animation: spinning 1s linear infinite;
+
+        @keyframes spinning {
+            100%{
+                transform: rotate(360deg);
+            }  
+        }
+    }
+}

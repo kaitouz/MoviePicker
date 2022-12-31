@@ -7,6 +7,7 @@ import tmdbAPI from '../../api/tmdbAPI'
 import authAPI from '../../api/serverAPI/authAPI'
 import { config } from '../../api/tmdbConfig'
 import logo from '../../assets/logo.png'
+import Loading from '../../components/loading/Loading'
 
 const Signup = () => {
     const navigate = useNavigate()
@@ -176,7 +177,7 @@ const Signup = () => {
                 <button className={classes.signupBtn}
                     onClick={submitForm}>
                     {
-                        processing ? <div className={classes.processing}>Please wait</div> : 'Create account'
+                        processing ? <Loading>Please wait</Loading> : 'Create account'
                     }
                 </button>
 
