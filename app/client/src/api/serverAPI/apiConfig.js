@@ -1,6 +1,5 @@
 const apiConfig = {
-    imgURL: (path) => path !=='default.png'? 'url':null,
-    //baseURL: 'http://localhost:5000'
+    imgURL: (path) => `http://image.popcorn.ducthangchin.engineer/images/${path}`,
     baseURL: 'http://api.v1.ducthangchin.engineer'
 }
 

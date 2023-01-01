@@ -8,6 +8,7 @@ import './commentCard.scss'
 import reviewAPI from '../../api/serverAPI/reviewAPI'
 import Loading from '../loading/Loading'
 import defaultAvatar from '../../assets/default_avt.png'
+import apiConfig from '../../api/serverAPI/apiConfig'
 
 const CommentCard = (props) => {
   const item = props.item
@@ -75,7 +76,7 @@ const CommentCard = (props) => {
   return (
     <div className="comment-card">
       <div className="comment-card__avatar">
-        <img src={defaultAvatar}></img>
+        <img src={apiConfig.imgURL(item.avatar) || defaultAvatar}></img>
       </div>
       <div>
         <div className="comment-card__button">
@@ -134,7 +135,7 @@ export const PseudoComment = () => {
     <>
       {user ? <div className="comment-card">
         <div className="comment-card__avatar">
-          <img src={defaultAvatar}></img>
+          <img src={apiConfig.imgURL(user.avatar) || defaultAvatar}></img>
         </div>
         <div>
           <div className="comment-card__button">

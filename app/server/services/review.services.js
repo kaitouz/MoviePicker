@@ -13,7 +13,8 @@ const getAllReviewsByMovieID = async (movie_id) =>
         `SELECT review.id, review.user_id, review.movie_id, review.content, review.time, user.name AS user_name, user.email, user.role, user.avatar 
         FROM review 
         JOIN user ON user.id = review.user_id
-        WHERE movie_id = ?`, movie_id)
+        WHERE movie_id = ?
+        ORDER BY review.time ASC`, movie_id)
 
 const addReview = async (user_id, movie_id, content) =>
     await query(
