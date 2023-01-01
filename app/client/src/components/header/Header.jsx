@@ -6,6 +6,7 @@ import './header.scss'
 import logo from '../../assets/logo.png'
 import default_avt from '../../assets/default_avt.png'
 import { useEffect } from 'react'
+import apiConfig from '../../api/serverAPI/apiConfig'
 
 const headerNav = [
     {
@@ -28,6 +29,7 @@ const Header = () => {
     const shouldHide = pathname === '/login' || pathname === '/signup' 
     const headerRef = useRef(null)
     const active = headerNav.findIndex(e => e.path == pathname)
+    const user = JSON.parse(localStorage.getItem('user'))
 
     useEffect(() => {
         const shrinkHeader = () => {
@@ -38,6 +40,7 @@ const Header = () => {
             }
         }
         window.addEventListener('scroll', shrinkHeader)
+        
         return () => {
             window.removeEventListener('scroll', shrinkHeader)
         };
@@ -63,7 +66,7 @@ const Header = () => {
                     }
                     {localStorage.getItem('token')
                         ? <div className='user-config'>
-                            <img src={default_avt}></img>
+                            <img src={apiConfig.imgURL(user.avatar) || default_avt}></img>
                             <div className='dropdown-list'>
                                 <a href='/bookmark'>Bookmarks</a>
                                 <a href='/setting'>Setting</a>

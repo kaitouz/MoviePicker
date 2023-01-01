@@ -27,6 +27,19 @@ const userAPI = {
         }
         const data = { new_name }
         return axios.post('/set-name', data, config(headers, null))
+    },
+    upLoadAvatar: (file, token) => {
+        const formData = new FormData()
+        formData.append("image", file)
+        return axios({
+            method: "post",
+            url: `${apiConfig.baseURL}'/user/upload-avatar'`,
+            data: formData,
+            headers: { 
+                "Content-Type": "multipart/form-data", 
+                x_authorization: token 
+            }
+        })
     }
 }
 

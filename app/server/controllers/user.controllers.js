@@ -83,3 +83,12 @@ exports.changeName = async (req, res) => {
         result: true,
     })
 }
+
+exports.uploadAvatar = async (req, res) => {
+    const user = req.user 
+    const response = await userService.updateAvatar(user.id, req.file.filename)
+    //console.log(response)
+    res.json({
+        avatar: req.file.filename
+    })
+}

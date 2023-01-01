@@ -105,7 +105,8 @@ const Signup = () => {
                             id: res.data.user.id,
                             name: res.data.user.name,
                             email: res.data.user.email,
-                            role: res.data.user.role
+                            role: res.data.user.role,
+                            avatar: res.data.user.avatar
                         }
 
                         localStorage.setItem('user', JSON.stringify(user))
