@@ -6,6 +6,8 @@ import Catalog from '../pages/catalog/Catalog'
 import Detail from '../pages/detail/Detail'
 import Login from '../pages/login/Login'
 import Signup from '../pages/signup/Signup'
+import Setting from '../pages/setting/Setting'
+import Bookmark from '../pages/bookmark/Bookmark'
 
 const Routes = () => {
     return (
@@ -38,6 +40,14 @@ const Routes = () => {
                 <Route
                     path='/signup'
                     element={<Signup />}
+                />
+                <Route
+                    path='/setting'
+                    element={<Setting/>}
+                />
+                <Route 
+                    path='/bookmark'
+                    element={<Bookmark/>}
                 />
             </Switch>
         </div>

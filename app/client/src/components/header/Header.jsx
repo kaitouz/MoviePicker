@@ -25,7 +25,7 @@ const headerNav = [
 const Header = () => {
     const navigate = useNavigate()
     const { pathname } = useLocation()
-    const shouldHide = pathname === '/login' || pathname === '/signup'
+    const shouldHide = pathname === '/login' || pathname === '/signup' 
     const headerRef = useRef(null)
     const active = headerNav.findIndex(e => e.path == pathname)
 
@@ -65,8 +65,8 @@ const Header = () => {
                         ? <div className='user-config'>
                             <img src={default_avt}></img>
                             <div className='dropdown-list'>
-                                <a href='#'>Bookmarks</a>
-                                <a href='#'>Setting</a>
+                                <a href='/bookmark'>Bookmarks</a>
+                                <a href='/setting'>Setting</a>
                                 <a onClick={() => {
                                     localStorage.removeItem('token')
                                     localStorage.removeItem('user')

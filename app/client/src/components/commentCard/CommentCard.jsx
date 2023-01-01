@@ -1,29 +1,21 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { FaEdit, FaTrashAlt } from 'react-icons/fa'
+import moment from 'moment'
 
 import './commentCard.scss'
 
-import userAPI from '../../api/serverAPI/userAPI'
 import reviewAPI from '../../api/serverAPI/reviewAPI'
 import Loading from '../loading/Loading'
+import defaultAvatar from '../../assets/default_avt.png'
 
 const CommentCard = (props) => {
   const item = props.item
   const user = JSON.parse(localStorage.getItem('user'))
-  const [reviewer, setReviewer] = useState(null)
   const [processDelete, setProcessDelete] = useState(false)
 
   const content = useRef(null)
 
-  useEffect(() => {
-    if (user && user.id == item.user_id) setReviewer(user)
-    else {
-      userAPI.getUserInfo(item.user_id).then(res => {
-        setReviewer(res.data)
-      })
-    }
-  }, [props])
 
   const deleteComment = () => {
     const token = localStorage.getItem('token')
@@ -77,52 +69,59 @@ const CommentCard = (props) => {
     selection.addRange(range)
   }
 
+  const time = `${(new Date(item.time)).toDateString()} 
+        at ${(new Date(item.time)).toLocaleTimeString()}`
+
   return (
     <div className="comment-card">
-      <div className="comment-card__button">
-        {user && reviewer && reviewer.id === user.id ?
-          <div className="edit" onClick={editComment}>
-            <p>Edit</p>
-            <FaEdit />
-          </div> : null
-        }
-        {user && reviewer && (reviewer.id === user.id || user.role === 'admin') ?
-          <div className="delete" onClick={deleteComment}>
-            {
-              processDelete ? <Loading></Loading> 
-                : <>
+      <div className="comment-card__avatar">
+        <img src={defaultAvatar}></img>
+      </div>
+      <div>
+        <div className="comment-card__button">
+          {(user && item.user_id === user.id) ?
+            <div className="edit" onClick={editComment}>
+              <p>Edit</p>
+              <FaEdit />
+            </div> : null
+          }
+          {(user && (item.user_id === user.id || user.role === 'admin')) ?
+            <div className="delete" onClick={deleteComment}>
+              {
+                processDelete ? <Loading></Loading>
+                  : <>
                     <FaTrashAlt />
                     <p>Delete</p>
                   </>
-            }
-          </div> : null
-        }
-      </div>
-      <div className="comment-card__header">
-        <h3>{reviewer ? reviewer.name : ''}</h3>
-        {
-          reviewer && reviewer.role === 'admin' ?
-            <div className="role"> {reviewer.role} </div>
-            : null
-        }
-      </div>
-      <div className='comment-card__time'>
-        {`${(new Date(item.time)).toDateString()} 
-        at ${(new Date(item.time)).toLocaleTimeString()}`}
-      </div>
-      <div ref={content} className="comment-card__content">
-        <p>{item.content}</p>
-        <div className="comment-card__content__edit">
-          <div><span
-            contentEditable='true'
-            suppressContentEditableWarning={true}
+              }
+            </div> : null
+          }
+        </div>
+        <div className="comment-card__header">
+          <h3>{item.user_name}</h3>
+          {
+            item.role === 'admin' ?
+              <div className="role"> {item.role} </div>
+              : null
+          }
+        </div>
+        <div className='comment-card__time' name={time}>
+          <p>{moment(item.time).fromNow()}</p>
+        </div>
+        <div ref={content} className="comment-card__content">
+          <p>{item.content}</p>
+          <div className="comment-card__content__edit">
+            <div><span
+              contentEditable='true'
+              suppressContentEditableWarning={true}
 
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') submitEditedComment()
-            }}
-          >{item.content}</span></div>
-          <button onClick={submitEditedComment}>Save</button>
-          <button onClick={discarEditedComment}>Discard</button>
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') submitEditedComment()
+              }}
+            >{item.content}</span></div>
+            <button onClick={submitEditedComment}>Save</button>
+            <button onClick={discarEditedComment}>Discard</button>
+          </div>
         </div>
       </div>
     </div>
@@ -134,31 +133,36 @@ export const PseudoComment = () => {
   return (
     <>
       {user ? <div className="comment-card">
-        <div className="comment-card__button">
-          <div className="edit">
-            <p>Edit</p>
-            <FaEdit />
-          </div>
+        <div className="comment-card__avatar">
+          <img src={defaultAvatar}></img>
+        </div>
+        <div>
+          <div className="comment-card__button">
+            <div className="edit">
+              <p>Edit</p>
+              <FaEdit />
+            </div>
 
-          <div className="delete">
-            <FaTrashAlt />
-            <p>Delete</p>
+            <div className="delete">
+              <FaTrashAlt />
+              <p>Delete</p>
+            </div>
           </div>
-        </div>
-        <div className="comment-card__header">
-          <h3>{user.name}</h3>
-          {
-            user.role === 'admin' ?
-              <div className="role"> {user.role} </div>
-              : null
-          }
-        </div>
-        <div className='comment-card__time'>
-         Just now
-        </div>
-        <div className="comment-card__content">
-          <div className='pseudo-comment'>
-            <Loading>Posting</Loading>
+          <div className="comment-card__header">
+            <h3>{user.name}</h3>
+            {
+              user.role === 'admin' ?
+                <div className="role"> {user.role} </div>
+                : null
+            }
+          </div>
+          <div className='comment-card__time'>
+            Just now
+          </div>
+          <div className="comment-card__content">
+            <div className='pseudo-comment'>
+              <Loading>Posting</Loading>
+            </div>
           </div>
         </div>
       </div> : null}

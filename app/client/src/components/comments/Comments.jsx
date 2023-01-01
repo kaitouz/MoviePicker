@@ -19,7 +19,7 @@ const Comments = (props) => {
     useEffect(() => {
         const fetchComments = async () => {
             const res = await reviewAPI.getMovieReviews(props.id)
-            setComments(res.data.slice(0, 10))
+            setComments(res.data.slice(-10))
         }
         
 
@@ -36,13 +36,26 @@ const Comments = (props) => {
     const postComment = () => {
         if (inputCmt === null || inputCmt === '') return
         const token = localStorage.getItem('token')
+        
         if (token) {
             
             setProcessPosting(true)
             reviewAPI.adddReview(props.id, inputCmt, token)
             .then(
                 res => {
-                    setComments([...comments, { ...res.data.result, time: new Date().toISOString() }])
+                    
+                    const newComment = {
+                        ...res.data.result,
+                        time: new Date().toISOString(),
+                        avatar: user.avatar,
+                        email: user.email,
+                        user_id: user.id,
+                        role: user.role,
+                        user_name: user.name
+                    }
+                    console.log([...comments, newComment])
+                    
+                    setComments([...comments, newComment])
                     setProcessPosting(false)
                 }
             ).catch(err => {
@@ -61,7 +74,7 @@ const Comments = (props) => {
 
     const onEditSuccess = async () => {
         const res = await reviewAPI.getMovieReviews(props.id)
-        setComments(res.data.slice(0, 10))
+        setComments(res.data)
     }
 
     return (
