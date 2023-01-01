@@ -1,7 +1,7 @@
 module.exports = {
     user: 'uwjp41cc2guf7bii',
     host: 'bhdkevvwuqmayn2gcobm-mysql.services.clever-cloud.com',
-    password: 'kNdLbnDfQargSAFo0SNw',
+    password: 'PASTE-PASSWORD-HERE',
     database: 'bhdkevvwuqmayn2gcobm',
     timezone: 'utc'
 }

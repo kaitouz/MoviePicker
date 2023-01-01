@@ -1,3 +1,3 @@
 module.exports = {
-    root: './images'
+    root: '~/data/images'
 }

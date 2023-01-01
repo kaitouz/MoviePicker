@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import axios from 'axios';
 
 import './setting.scss'
+import apiConfig from '../../api/serverAPI/apiConfig';
 
 //import userAPI from '../../api/serverAPI/userAPI';
 
@@ -17,11 +18,12 @@ const Setting = () => {
          
             axios({
                 method: "post",
-                url: "http://localhost:5000/user/upload-avatar",
+                url: `${apiConfig.baseURL}/user/upload-avatar`,
                 data: formData,
                 headers: { "Content-Type": "multipart/form-data", "x_authorization" : token },
             })
             .then(res => {
+                console.log('ok')
                 const user = JSON.parse(localStorage.getItem('user'))
                 user.avatar = res.data.avatar
                 localStorage.setItem('user', JSON.stringify(user))
