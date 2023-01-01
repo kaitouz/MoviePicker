@@ -6,6 +6,7 @@ import './comments.scss'
 
 import reviewAPI from '../../api/serverAPI/reviewAPI'
 import CommentCard, { PseudoComment } from '../commentCard/CommentCard'
+import apiConfig from '../../api/serverAPI/apiConfig'
 
 
 const Comments = (props) => {
@@ -53,7 +54,6 @@ const Comments = (props) => {
                         role: user.role,
                         user_name: user.name
                     }
-                    console.log([...comments, newComment])
                     
                     setComments([...comments, newComment])
                     setProcessPosting(false)
@@ -74,7 +74,7 @@ const Comments = (props) => {
 
     const onEditSuccess = async () => {
         const res = await reviewAPI.getMovieReviews(props.id)
-        setComments(res.data)
+        setComments(res.data.slice(-10))
     }
 
     return (
@@ -103,6 +103,7 @@ const Comments = (props) => {
                 {
                     user ?
                         <>
+                            <img src={apiConfig.imgURL(user.avatar)}></img>
                             <input type='text'
                                 placeholder='Leave a comment...'
                                 id='comment-field'
