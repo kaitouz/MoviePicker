@@ -84,7 +84,7 @@ const Detail = () => {
     navigate(`/${category}/genre/${genre_id}`)
   }
 
-  const getBgURL = () => (item.backdrop_path || item.poster_path) ? config.originalImage(item.backdrop_path || item.poster_path) : errPoster
+  const getBgURL = () => (item.backdrop_path || item.poster_path) ? config.w500Image(item.poster_path || item.backdrop_path) : errPoster
 
   return (
     <>

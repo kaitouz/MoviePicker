@@ -17,7 +17,8 @@ exports.getUserInfo = async (req, res) => {
         const userPublicInfo = {
             id: result.id,
             name: result.name,
-            role: result.role
+            role: result.role,
+            avatar: result.avatar
         }
         return res.json(userPublicInfo)
     }

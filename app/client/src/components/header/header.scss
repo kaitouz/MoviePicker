@@ -84,6 +84,7 @@
                 height: 3rem;
                 cursor: pointer;
                 border-radius: 10px;
+            
             }
 
             &:hover .dropdown-list {
@@ -100,7 +101,14 @@
                 font-size: 1.5rem;
                 font-weight: 500;
                 padding: 10px;
+                box-sizing: border-box;
                 border-radius: 15px;
+                
+                @include mobile{
+                    left: 100%;
+                    transform: translateX(-97%);
+                    bottom: 100%;
+                }
 
                 a {
                     cursor: pointer;
