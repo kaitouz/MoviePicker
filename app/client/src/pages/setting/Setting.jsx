@@ -121,7 +121,7 @@ const Setting = () => {
                     <div className='setting__avatar__preview'>
                         <img alt="Only accept .png, .jpeg, .gif" width={"250px"}
                             src={selectedImage ? URL.createObjectURL(selectedImage) : apiConfig.imgURL(user.avatar)}
-                            accept="image/png, image/gif, image/jpeg" />
+                            accept="image/png, image/gif, image/jpeg, image/jpg" />
 
                         {selectedImage && 
                             <div className='imgName'>{selectedImage.name} 

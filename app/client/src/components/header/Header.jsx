@@ -1,13 +1,13 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import './header.scss'
 
 import logo from '../../assets/logo.png'
 import default_avt from '../../assets/default_avt.png'
-import { useEffect } from 'react'
 import apiConfig from '../../api/serverAPI/apiConfig'
 import authAPI from '../../api/serverAPI/authAPI'
+import bookmarkAPI from '../../api/serverAPI/bookmarkAPI'
 
 const headerNav = [
     {
@@ -43,7 +43,7 @@ const Header = () => {
         window.addEventListener('scroll', shrinkHeader)
         const refreshToken = localStorage.getItem('refreshToken')
         const token = localStorage.getItem('token')
-
+        
         if (refreshToken && token) {
             authAPI.refreshToken(refreshToken, token).then(res => {
                 console.log('auto refresh token')
@@ -53,7 +53,8 @@ const Header = () => {
                 console.log(err)
             })
         }
-
+        
+        //auto refresh token every 9m
         const autoRefreshToken = setInterval(() => {
             if (refreshToken && token) {
                 authAPI.refreshToken(refreshToken, token).then(res => {
@@ -65,17 +66,25 @@ const Header = () => {
                 })
             } else clearInterval(autoRefreshToken)
         }, 540000)
-
+        
         return () => {
             clearInterval(autoRefreshToken)
             window.removeEventListener('scroll', shrinkHeader)
         };
     }, [])
+    
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        const bookmarks = localStorage.getItem('bookmarks')
+        if (token && !bookmarks) {
+            bookmarkAPI.userBookmarks(token).then(res => {
+                localStorage.setItem('bookmarks', JSON.stringify(res.data))
+            })
+        }
+    })
 
     const logout = () => {
-        localStorage.removeItem('token')
-        localStorage.removeItem('user')
-        localStorage.removeItem('refreshToken')
+        localStorage.clear()
         navigate(0)
     }
 
@@ -96,7 +105,7 @@ const Header = () => {
                             </li>
                         ))
                     }
-                    {localStorage.getItem('token')
+                    {   localStorage.getItem('token')
                         ? <div className='user-config'>
                             <img src={apiConfig.imgURL(user.avatar) || default_avt}></img>
                             <div className='dropdown-list'>

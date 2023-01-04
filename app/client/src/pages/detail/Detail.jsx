@@ -13,6 +13,8 @@ import MovieList from '../../components/movieList/MovieList'
 import CastList from '../../components/castList/CastList'
 import Comments from '../../components/comments/Comments'
 import Loading from '../../components/loading/Loading'
+import Bookmark, { StarBookmark } from '../../components/bookmark/Bookmark'
+import { FaStar } from 'react-icons/fa'
 
 const Detail = () => {
   const navigate = useNavigate()
@@ -22,15 +24,19 @@ const Detail = () => {
   const [userRating, setUserRating] = useState(null)
   const [cate, setCate] = useState(category)
   const [movieId, setMovieId] = useState(id)
+  const [marked, setMarked] = useState(false)
   const [processRating, setProcessRating] = useState(true)
   const [processAverageScore, setProcessAverageScore] = useState(true)
+  const [processBm, setProcessBm] = useState(false)
 
   useEffect(() => {
     const getDetail = async () => {
       setProcessRating(true)
       setProcessAverageScore(true)
 
-      tmdbAPI.detail(category, id, { params: {} }).then(response => { setItem(response) })
+      tmdbAPI.detail(category, id, { params: {} }).then(response => { 
+        console.log(response)
+        setItem(response) })
       const res = await ratingAPI.getMovieRatings(id)
       const ratings = res.data
 
@@ -49,10 +55,16 @@ const Detail = () => {
       setProcessAverageScore(false)
     }
 
+
     setCate(category)
     setMovieId(id)
-    
+
     getDetail();
+
+    const userBookmarks = localStorage.getItem('bookmarks')
+    if (!userBookmarks) return
+    const bookmarks = JSON.parse(userBookmarks)
+    setMarked(bookmarks.findIndex(i => i === movieId) !== -1)
   }, [category, id])
 
   const rateMovie = (score) => {
@@ -65,17 +77,17 @@ const Detail = () => {
       }
       return
     }
- 
+
     setProcessRating(true)
     ratingAPI.rateMovie(id, score, token)
-    .then(res => {
-      setProcessRating(false)
-      setUserRating(res.data.result.score)
-    })
-    .catch(err => {
-      setProcessRating(false)
-      console.log(err)
-    })
+      .then(res => {
+        setProcessRating(false)
+        setUserRating(res.data.result.score)
+      })
+      .catch(err => {
+        setProcessRating(false)
+        console.log(err)
+      })
   }
 
   const searchByGenre = (genre_id) => {
@@ -97,9 +109,32 @@ const Detail = () => {
                 <div className="movie-overview__poster__img" style={{ backgroundImage: `url(${getBgURL()})` }}></div>
               </div>
               <div className="movie-overview__info">
-                <h1 className="title">
-                  {item.title || item.name}
-                </h1>
+                <div className="movie-overview__info__title">
+                  {
+                    processBm ? <div className={`bookmark ${marked ? 'star-bm' : null}`}><Loading /></div> :
+                      (marked ?
+                        <StarBookmark movieId={item.id.toString()}
+                          onClick={() => setProcessBm(true)}
+                          onSuccess={() => {
+                            setProcessBm(false)
+                            setMarked(false)
+                          }}
+                          onError={() => setProcessBm(false)}
+                        /> :
+                        <Bookmark movieId={item.id.toString()}
+                          onClick={() => setProcessBm(true)}
+                          onSuccess={() => {
+                            setProcessBm(false)
+                            setMarked(true)
+                          }}
+                          onError={() => setProcessBm(false)}
+                        />
+                      )
+                  }
+                  <h1 className="title">
+                    {item.title || item.name} &nbsp;
+                  </h1>
+                </div>
                 <div className="release-date">
                   {new Date(item.release_date || item.first_air_date).toLocaleDateString()}
                 </div>
@@ -113,18 +148,18 @@ const Detail = () => {
                 <div className="score">
                   <div className="score__popcorn">
                     <img src={logo}></img>
-                    <div className="rating">
-                      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num =>
-                        <div key={num} onMouseDown={() => rateMovie(num)}>
-                          {num}
-                        </div>
-                      )}
+                    <div className='score__popcorn__stars'>
+                      {[...Array.from({ length: 10 }, (_, i) => i + 1)].map(
+                        (item, i) => <i className={item <= userRating ? 'yellow' : ''}
+                          onClick={() => rateMovie(item)}
+                          key={i}><FaStar /></i>)}
                     </div>
+
                   </div>
                   <div className="notification" id='rating-alert'>Please login or sign up to rate movie</div>
                   <div className='score__user-rating'>
-                    {processRating ? <Loading></Loading> : 
-                    (userRating ? userRating : '__')}
+                    {processRating ? <Loading></Loading> :
+                      (userRating ? userRating : '__')}
                   </div>
                   <div className='score__average'>
                     {'Average Score: '}
