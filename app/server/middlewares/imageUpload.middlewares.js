@@ -13,7 +13,7 @@ const imageStorage = multer.diskStorage({
 exports.imageUpload = multer({
     storage: imageStorage,
     fileFilter(req, file, cb) {
-        if (!file.originalname.match(/\.(png|jpg|gif)$/)) {
+        if (!file.originalname.match(/\.(png|jpg|jpeg|gif)$/)) {
             return cb(new Error('Please upload a Image'))
         }
         

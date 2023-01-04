@@ -64,7 +64,7 @@ const Detail = () => {
     const userBookmarks = localStorage.getItem('bookmarks')
     if (!userBookmarks) return
     const bookmarks = JSON.parse(userBookmarks)
-    setMarked(bookmarks.findIndex(i => i === movieId) !== -1)
+    setMarked(bookmarks.findIndex(i => i.movieId === movieId) !== -1)
   }, [category, id])
 
   const rateMovie = (score) => {
@@ -114,6 +114,7 @@ const Detail = () => {
                     processBm ? <div className={`bookmark ${marked ? 'star-bm' : null}`}><Loading /></div> :
                       (marked ?
                         <StarBookmark movieId={item.id.toString()}
+                          category={category}
                           onClick={() => setProcessBm(true)}
                           onSuccess={() => {
                             setProcessBm(false)
@@ -122,6 +123,7 @@ const Detail = () => {
                           onError={() => setProcessBm(false)}
                         /> :
                         <Bookmark movieId={item.id.toString()}
+                          category={category}
                           onClick={() => setProcessBm(true)}
                           onSuccess={() => {
                             setProcessBm(false)

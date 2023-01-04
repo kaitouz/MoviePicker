@@ -9,7 +9,9 @@ import bookmarkAPI from '../../api/serverAPI/bookmarkAPI'
 const Bookmark = (props) => {
     const addBookmark = () => {
         const movieId = props.movieId
-        if (!movieId) return
+        const category = props.category
+
+        if (!movieId || !category) return
 
         const token = localStorage.getItem('token')
         if (!token) return console.log('err')
@@ -18,8 +20,8 @@ const Bookmark = (props) => {
         
         if (props.onClick) props.onClick()
         
-        bookmarkAPI.addBookmark(movieId, token).then(() => {
-            bookmarks.push(movieId)
+        bookmarkAPI.addBookmark(movieId, category, token).then(() => {
+            bookmarks.push({ movieId, category })
             localStorage.setItem('bookmarks', JSON.stringify(bookmarks))
             if (props.onSuccess) props.onSuccess()
         }).catch(err => {
@@ -38,7 +40,9 @@ const Bookmark = (props) => {
 export const StarBookmark = (props) => {
     const removeBookmark = () => {
         const movieId = props.movieId
-        if (!movieId) return
+        const category = props.category
+
+        if (!movieId || !category) return
 
         const token = localStorage.getItem('token')
         if (!token) return console.log('err')
@@ -49,7 +53,7 @@ export const StarBookmark = (props) => {
     
         bookmarkAPI.removeBookmark(movieId, token).then(() => {
             localStorage.setItem('bookmarks', JSON.stringify(
-                bookmarks.filter(i => i !== movieId))
+                bookmarks.filter(i => i.movieId !== movieId))
             )
             if (props.onSuccess) props.onSuccess()
         }).catch(err => {
@@ -71,14 +75,16 @@ Bookmark.propTypes = {
     onClick: PropTypes.func,
     onSuccess: PropTypes.func,
     onError: PropTypes.func,
-    movieId: PropTypes.string
+    movieId: PropTypes.string,
+    category: PropTypes.string
 }
 
 StarBookmark.propTypes = {
     onClick: PropTypes.func,
     onSuccess: PropTypes.func,
     onError: PropTypes.func,
-    movieId: PropTypes.string
+    movieId: PropTypes.string,
+    category: PropTypes.string
 }
 
 

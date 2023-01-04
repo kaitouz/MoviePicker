@@ -2,11 +2,12 @@
 
 .setting {
     padding: 8rem;
+    padding-bottom: 3rem;
     @include flex(unset, unset);
     flex-wrap: wrap;
 
     @include tablet{
-        padding: 2rem;
+        padding: 3rem;
         padding-top: 8rem;
     }
     &__avatar {

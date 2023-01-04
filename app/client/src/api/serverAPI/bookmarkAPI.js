@@ -10,8 +10,8 @@ const config = (headers, params) => {
 }
 
 const bookmarkAPI = {
-    addBookmark: (movie_id, token) => {
-        const params = { movie_id }
+    addBookmark: (movie_id, category, token) => {
+        const params = { movie_id, category }
         const headers = {
             x_authorization: token
         }

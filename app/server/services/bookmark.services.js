@@ -1,13 +1,14 @@
 const query = require('./mysql.services')
 
-const addBookmark = async (user_id, movie_id) =>
-    await query('INSERT INTO bookmark (user_id, movie_id) VALUES (?, ?)', [
+const addBookmark = async (user_id, movie_id, category) =>
+    await query('INSERT INTO bookmark (user_id, movie_id, category) VALUES (?, ?, ?)', [
         user_id,
         movie_id,
+        category
     ])
 
 const getAllBookmarksByUserId = async (user_id) =>
-    await query('SELECT movie_id FROM bookmark WHERE user_id = ?', user_id)
+    await query('SELECT movie_id, category FROM bookmark WHERE user_id = ?', user_id)
 
 const getBookmarkByUserIdAndMovieId = async (user_id, movie_id) => {
     const results = await query(
