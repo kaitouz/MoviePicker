@@ -71,6 +71,7 @@
     }
 
     &__info {
+
         width: 70%;
         padding-left: 5rem;
 
@@ -80,6 +81,24 @@
 
         @include mobile {
             width: 100%;
+        }
+
+        &__title {
+            position: relative;
+
+            .bookmark {
+                position: absolute;
+                left: -2.5rem;
+                top: 1rem;
+                
+
+                .loading {
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            }
         }
 
         .genres {
@@ -113,6 +132,7 @@
             margin-top: 3rem;
 
             &__popcorn {
+                position: relative;
                 display: inline-block;
                 width: fit-content;
                 @include flex(center, unset);
@@ -120,36 +140,25 @@
                 img {
                     cursor: pointer;
                     width: 3rem;
+                    vertical-align: middle;
                 }
 
-                .rating {
-                    div:first-child {
-                        border-radius: 10px 0 0 10px;
+                i {
+                    font-size: 1.5rem;
+                    margin-bottom: 0;
+                    cursor: pointer;
+
+                    &.yellow {
+                        color: yellow;
                     }
 
-                    div:last-child {
-                        border-radius: 0 10px 10px 0;
+                    &:hover {
+                        color: orange;
                     }
+                }
 
-                    div {
-                        cursor: pointer;
-                        text-align: center;
-                        display: inline-block;
-                        background-color: rgba(256, 256, 256, 0.3);
-                        width: 0px;
-                        opacity: 0;
-                        visibility: hidden;
-                        transition: width 0.6s ease-out, opacity 0.6s ease-out;
-
-                        &:hover {
-                            font-weight: 700;
-                            background-color: rgba($color: white, $alpha: 0.4);
-                        }
-
-                        &:active {
-                            background-color: rgba($color: white, $alpha: 0.5);
-                        }
-                    }
+                &__starts {
+                    position: absolute;
                 }
 
                 &:hover {
@@ -172,7 +181,24 @@
             &__user-rating {
                 width: 3rem;
                 text-align: center;
+                height: 2.5rem;
+                position: relative;
 
+                .loading {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    justify-content: center;
+                }
+            }
+
+            &__average {
+                display: flex;
+
+                .loading {
+                    margin-left: 0.5rem;
+                }
             }
 
             .notification {

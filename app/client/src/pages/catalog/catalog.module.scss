@@ -1,0 +1,101 @@
+@use '../../scss/' as *;
+
+.catalog {
+    padding-top: 50vmin;
+
+    @include mobile {
+        padding-top: 40vmax;
+    }
+}
+
+.banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50vmin;
+    background-image: url('../../assets/banner.jpg');
+    background-repeat: no-repeat;
+    overflow: hidden;
+
+    @include mobile {
+        height: 40vmax;
+    }
+
+    &::after {
+        content: '';
+        background-image: linear-gradient(to top, $body-bg, rgba($black, 0));
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+    &::before {
+        content: '';
+        background-color: rgba(black, 0.5);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+    .content {
+        width: 60%;
+        position: absolute;
+        top: 8.5rem;
+        @include flex(center, unset);
+        flex-wrap: wrap;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
+
+        @include tablet {
+            width: 80%;
+        }
+
+        @include mobile {
+            width: 90%;
+        }
+
+        .genre {
+            user-select: none;
+            cursor: pointer;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border: 2px solid white;
+            padding: 5px 15px;
+            border-radius: $border-radius;
+            margin: 0.5rem;
+            transition: box-shadow 0.3s ease;
+
+            &:hover {
+                box-shadow: 0 0 5px 3px rgba(white, 0.7);
+            }
+
+            &:active {
+                background-color: rgba(white, 0.5);
+            }
+
+            @include tablet {
+                padding: 3px 10px;
+                margin: 0.4rem;
+            }
+
+            @include mobile {
+
+                padding: 2px 8px;
+                margin: 0.3rem
+            }
+
+        }
+    }
+}
+
+.container {
+    padding: 0 10%;
+
+    @include tablet {
+        padding: 0 5%;
+    }
+}

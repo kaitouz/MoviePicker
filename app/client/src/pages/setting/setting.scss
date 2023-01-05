@@ -1,0 +1,199 @@
+@use '../../scss/' as *;
+
+.setting {
+    padding: 8rem;
+    padding-bottom: 3rem;
+    @include flex(unset, unset);
+    flex-wrap: wrap;
+
+    @include tablet{
+        padding: 3rem;
+        padding-top: 8rem;
+    }
+    &__avatar {
+        width: 20%;
+        min-width: 300px;
+        padding: 1rem;
+
+        &__preview{
+            margin-top: 0.5rem;
+
+            img{
+                width: 15rem;
+                height: 15rem;
+                border: 2px solid rgba(white, 0.4);
+                border-radius: 10px;
+            }
+
+            .imgName{
+                @include flex(center, unset);
+                flex-wrap: wrap;
+
+                .trash{
+                    cursor: pointer;
+                    margin-left: 0.3rem;
+                    font-size: 1rem;
+                    color: rgb(235, 79, 79);
+
+                }
+            }
+
+        }
+
+        label{
+            cursor: pointer;
+            font-weight: 500;
+            background-color: rgb(48, 163, 48);
+            padding: 5px 0.5rem;
+            margin: 0.5rem 0;
+            margin-right: 0.5rem;
+            border-radius: 10px;
+
+            &:hover{
+                background-color: green;
+            }
+
+            &:active{
+                opacity: 0.8;
+            }
+        }
+
+        button {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            font-weight: 700;
+            color: white;
+            background-color: rgb(34, 90, 163);
+            border: 0;
+            border-radius: 1rem;
+            position: relative;
+            overflow: hidden;
+    
+            &:hover::after {
+                content: '';
+                background-color: black;
+                opacity: 0.1;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+    
+            &:active {
+                opacity: 0.8;
+            }
+    
+        }
+
+        .loading{
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 0.3rem;
+        }
+
+    }
+
+    &__info {
+        background-color: rgba(gray, 0.3);
+        border-radius: $border-radius;
+        padding: 1rem 2rem;
+        flex: 1;
+
+        &__basic {
+            margin: 2rem 0;
+            ;
+
+            h2 {
+                opacity: 0.6;
+            }
+
+            &__data {
+                font-size: 1.3rem;
+                margin: 0.5rem 0;
+
+                .row {
+                    padding: 0.5rem 0;
+                    @include flex(center, unset);
+
+                    .left {
+                        width: 40%;
+                        font-weight: bolder;
+                    }
+
+                    input {
+                        width: 20rem;
+                        font-weight: 500;
+                        color: white;
+                        font-size: 1.3rem;
+                        padding: 5px 15px;
+                        border-radius: 5px;
+                        background-color: rgba(gray, 0.8);
+                    }
+
+                }
+
+                .alert {
+                    font-size: 1rem;
+                    padding-left: 40%;
+                    color: red;
+                }
+
+                .btns {
+                    padding: 1rem 0;
+                    padding-left: 40%;
+
+                    button {
+                        padding: 0.5rem 1rem;
+                        font-size: 1rem;
+                        font-weight: 700;
+                        color: white;
+                        background-color: rgb(34, 90, 163);
+                        border: 0;
+                        border-radius: 1rem;
+                        position: relative;
+                        overflow: hidden;
+
+                        &:hover::after {
+                            content: '';
+                            background-color: black;
+                            opacity: 0.1;
+                            width: 100%;
+                            height: 100%;
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                        }
+
+                        &:active {
+                            opacity: 0.8;
+                        }
+
+                    }
+
+                    .saveBtn {
+                        margin-right: 1rem;
+                    }
+
+                    .cancelBtn {
+                        background-color: rgb(173, 75, 45);
+                    }
+
+                    .inactive {
+                        background-color: gray;
+                        cursor: auto;
+
+                        &:hover::after {
+                            display: none;
+                        }
+
+                        &:active {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+}

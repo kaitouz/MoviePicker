@@ -7,6 +7,7 @@ import tmdbAPI from '../../api/tmdbAPI'
 import authAPI from '../../api/serverAPI/authAPI'
 import { config } from '../../api/tmdbConfig'
 import logo from '../../assets/logo.png'
+import Loading from '../../components/loading/Loading'
 
 const Signup = () => {
     const navigate = useNavigate()
@@ -16,6 +17,7 @@ const Signup = () => {
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
     const [rePassword, setRePassword] = useState(null)
+    const [processing, setProcessing] = useState(false)
 
     useEffect(() => {
         document.getElementById('name').focus()
@@ -93,6 +95,7 @@ const Signup = () => {
 
         if (!shouldFormSubmit) return
 
+        setProcessing(true)
         authAPI.register(name, email, password)
             .then(() => {
                 console.log('Successfully register')
@@ -102,7 +105,8 @@ const Signup = () => {
                             id: res.data.user.id,
                             name: res.data.user.name,
                             email: res.data.user.email,
-                            role: res.data.user.role
+                            role: res.data.user.role,
+                            avatar: res.data.user.avatar
                         }
 
                         localStorage.setItem('user', JSON.stringify(user))
@@ -113,6 +117,7 @@ const Signup = () => {
                     })
             })
             .catch(err => {
+                setProcessing(false)
                 showErr(err.response.data)
             })
     }
@@ -140,8 +145,6 @@ const Signup = () => {
                     onKeyDown={submitOnEnter}
                 />
                 <div id='name-err' className={classes.err}></div>
-
-
                 <input id='email'
                     type='email'
                     name='email'
@@ -174,7 +177,9 @@ const Signup = () => {
 
                 <button className={classes.signupBtn}
                     onClick={submitForm}>
-                    Create account
+                    {
+                        processing ? <Loading>Please wait</Loading> : 'Create account'
+                    }
                 </button>
 
                 <div>Already have an account? <b className={classes.login}

@@ -17,7 +17,8 @@ exports.getUserInfo = async (req, res) => {
         const userPublicInfo = {
             id: result.id,
             name: result.name,
-            role: result.role
+            role: result.role,
+            avatar: result.avatar
         }
         return res.json(userPublicInfo)
     }
@@ -81,5 +82,14 @@ exports.changeName = async (req, res) => {
     res.json({
         message: 'Name changed successfully',
         result: true,
+    })
+}
+
+exports.uploadAvatar = async (req, res) => {
+    const user = req.user 
+    const response = await userService.updateAvatar(user.id, req.file.filename)
+    //console.log(response)
+    res.json({
+        avatar: req.file.filename
     })
 }

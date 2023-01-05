@@ -17,6 +17,13 @@ const authAPI = {
     login: (email, password) => {
         const data = { email, password }
         return axios.post('/login', data, config(null, null))
+    },
+    refreshToken: (refreshToken, token) => {
+        const data = { refreshToken }
+        const headers = {
+            x_authorization: token
+        }
+        return axios.post('/refresh', data, config(headers, null))
     }
 }
 

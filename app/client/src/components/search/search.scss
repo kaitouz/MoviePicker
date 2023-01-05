@@ -1,0 +1,79 @@
+@use '../../scss/' as *;
+
+.search {
+    font-size: 1.5rem;
+
+    &>* {
+        margin: 1rem;
+    }
+
+    input {
+        padding: 0.5rem 1.8rem;
+        font-size: 1.5rem;
+        color: white;
+        background-color: #3d3c3c;
+        outline: none;
+        border: 0;
+        border-radius: $border-radius;
+    }
+
+    &__dropdown {
+        display: inline-block;
+        position: relative;
+
+        &__button {
+            padding: 0.2rem 1.8rem;
+            width: 10rem;
+            border: 2px solid white;
+            box-sizing: border-box;
+            border-radius: $border-radius;
+            cursor: pointer;
+            @include flex(center, space-between);
+
+            .arrow {
+                border-bottom: 2px solid white;
+                border-right: 2px solid white;
+                width: 0.7rem;
+                height: 0.7rem;
+                transform: translateY(-22%) rotate(45deg);
+            }
+        }
+
+        &__menu {
+            position: absolute;
+            background-color: #3d3c3c;
+            border-radius: $border-radius;
+            width: 10rem;
+            max-height: 0;
+            cursor: pointer;
+            overflow: hidden;
+            z-index: 10;
+            transition: max-height 0.6s ease-out;
+
+            li {
+                padding: 0.2rem 1.8rem;
+            }
+
+            li:hover {
+                font-weight: 600;
+                color: red;
+            }
+        }
+
+        &:hover {
+            .search__dropdown__menu {
+                max-height: 200px;
+            }
+        }
+
+        &:active {
+            .search__dropdown__menu {
+                display: none;
+            }
+        }
+    }
+
+    .btn {
+        padding: 0.3rem 1.5rem;
+    }
+}

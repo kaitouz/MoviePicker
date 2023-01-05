@@ -1,0 +1,98 @@
+@use '../../scss/' as *;
+
+@use 'sass:math';
+$markedColor: rgb(221, 144, 0);
+$color: rgb(0, 158, 0);
+$size: 2rem;
+
+.bookmark {
+    width: $size;
+    height: calc($size * (math.sqrt(2) - 1/2));
+    background-color: $color;
+    border-radius: calc($size/10) calc($size/10) 0 0;
+    position: relative;
+    cursor: pointer;
+    animation: shaking 1.5s infinite;
+    display: inline-block;
+
+    &__cross {
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            width: calc($size * (math.sqrt(2) - 1/2) / 2);
+            height: calc($size/10);
+            background: white;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        &::after {
+            height: calc($size * (math.sqrt(2) - 1/2) / 2);
+            width: calc($size/10);
+        }
+
+    }
+
+    &__star {
+        font-size: calc($size/2);
+        position: absolute;
+        top: 55%;
+        left: 50%;
+        color: yellow;
+        transform: translate(-50%, -50%);
+    }
+
+    &:hover{
+        opacity: 0.8;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: calc($size * (math.sqrt(2) - 1));
+        border-left: calc($size/2) solid $color;
+        border-right: calc($size/2) solid $color;
+        border-bottom: calc($size/2) solid transparent;
+        border-top: calc($size/2) solid $color;
+    }
+
+
+
+    @keyframes shaking {
+        40% {
+            transform: rotate(0);
+        }
+
+        50% {
+            transform: rotate(15deg);
+        }
+
+        60% {
+            transform: rotate(-15deg)
+        }
+
+        70% {
+            transform: rotate(0);
+        }
+    }
+
+    &.star-bm {
+        background-color: $markedColor;
+        animation: none;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: calc($size * (math.sqrt(2) - 1));
+            border-left: calc($size/2) solid $markedColor;
+            border-right: calc($size/2) solid $markedColor;
+            border-bottom: calc($size/2) solid transparent;
+            border-top: calc($size/2) solid $markedColor
+        }
+
+    }
+
+}

@@ -80,8 +80,11 @@
             position: relative;
 
             img {
-                height: 48px;
+                width: 3rem;
+                height: 3rem;
                 cursor: pointer;
+                border-radius: 10px;
+            
             }
 
             &:hover .dropdown-list {
@@ -92,13 +95,20 @@
             .dropdown-list {
                 display: none;
                 position: absolute;
-                left: -50%;
+                left: -100%;
                 min-width: 100px;
                 background-color: #7c7c7c;
                 font-size: 1.5rem;
                 font-weight: 500;
                 padding: 10px;
+                box-sizing: border-box;
                 border-radius: 15px;
+                
+                @include mobile{
+                    left: 100%;
+                    transform: translateX(-97%);
+                    bottom: 100%;
+                }
 
                 a {
                     cursor: pointer;
@@ -108,11 +118,10 @@
 
         .login {
             i {
-                transition: transform 0.5s ease;
+                transition: color 0.3s ease;
             }
 
             i:hover {
-                transform: scale(1.1);
                 color: red;
             }
         }
