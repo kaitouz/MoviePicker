@@ -16,6 +16,7 @@
     height: 50vmin;
     background-image: url('../../assets/banner.jpg');
     background-repeat: no-repeat;
+    overflow: hidden;
 
     @include mobile {
         height: 40vmax;
