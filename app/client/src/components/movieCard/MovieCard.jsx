@@ -26,7 +26,7 @@ const MovieCard = props => {
         if (!userBookmarks) return
         const bookmarks = JSON.parse(userBookmarks)
         setMarked(bookmarks.findIndex(i => i.movieId === movieId) !== -1)
-    }, [])
+    })
  
     return (
         <div className='movie-card_container'>
