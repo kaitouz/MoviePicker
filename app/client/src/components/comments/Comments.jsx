@@ -5,17 +5,18 @@ import PropTypes from 'prop-types'
 import './comments.scss'
 
 import reviewAPI from '../../api/serverAPI/reviewAPI'
-import CommentCard, { PseudoComment } from '../commentCard/CommentCard'
+import CommentCard from '../commentCard/CommentCard'
 import apiConfig from '../../api/serverAPI/apiConfig'
+import { useRef } from 'react'
 
 
 const Comments = (props) => {
     const [user, setUser] = useState(null)
     const [comments, setComments] = useState([])
     const [inputCmt, setInputCmt] = useState(null)
-    const [processPosting, setProcessPosting] = useState(false)
 
     const navigate = useNavigate()
+    const inputField = useRef(null)
 
     useEffect(() => {
         const fetchComments = async () => {
@@ -39,36 +40,33 @@ const Comments = (props) => {
         const token = localStorage.getItem('token')
         
         if (token) {
-            
-            setProcessPosting(true)
-            reviewAPI.adddReview(props.id, inputCmt, token)
+            const commentId = `${user.id}${Date.now()}`
+            const newComment = { 
+                id: commentId,
+                time: new Date().toISOString(),
+                avatar: user.avatar,
+                content: inputCmt,
+                email: user.email,
+                user_id: user.id,
+                movie_id: props.id, 
+                role: user.role,
+                user_name: user.name
+            }
+            setComments([...comments, newComment])
+            reviewAPI.adddReview(commentId, props.id, inputCmt, token)
             .then(
                 res => {
-                    
-                    const newComment = {
-                        ...res.data.result,
-                        time: new Date().toISOString(),
-                        avatar: user.avatar,
-                        email: user.email,
-                        user_id: user.id,
-                        role: user.role,
-                        user_name: user.name
-                    }
-                    
-                    setComments([...comments, newComment])
-                    setProcessPosting(false)
+                    console.log(res.data.message)
                 }
             ).catch(err => {
-                setProcessPosting(false)
                 console.log(err)
             })
             setInputCmt('')
-            const inputField = document.getElementById('comment-field')
-            inputField.value = ''
+            inputField.current.value = ''
         }
     }
 
-    const onDeleteSuccess = (i) => {
+    const OnDeleteComment = (i) => {
         setComments(comments.filter(cmt => cmt.id != i))
     }
 
@@ -86,7 +84,7 @@ const Comments = (props) => {
                     comments.map((item, i) => (
                         <CommentCard item={item}
                             key={i}
-                            onDeleteSuccess={() => onDeleteSuccess(item.id)}
+                            onDelete={() => OnDeleteComment(item.id)}
                             onEditSuccess={onEditSuccess}
                         ></CommentCard>
                     ))
@@ -95,18 +93,14 @@ const Comments = (props) => {
                 
             </div>
 
-            {
-                processPosting ? <PseudoComment></PseudoComment> : null
-            }
-
             <div className="comments__input">
                 {
                     user ?
                         <>
                             <img src={apiConfig.imgURL(user.avatar)}></img>
                             <input type='text'
+                                ref={inputField}
                                 placeholder='Leave a comment...'
-                                id='comment-field'
                                 onKeyDown={handlerComment}
                                 onChange={e => setInputCmt(e.target.value)}
                             ></input>

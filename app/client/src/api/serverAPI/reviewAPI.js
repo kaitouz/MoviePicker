@@ -10,11 +10,11 @@ const config = (headers, params) => {
 }
 
 const reviewAPI = {
-    adddReview: (movie_id, content, token) => {
+    adddReview: (comment_id, movie_id, content, token) => {
         const headers = {
             x_authorization: token
         }
-        const data = { movie_id, content }
+        const data = { comment_id, movie_id, content }
 
         return axios.post('/add', data, config(headers, null))
     },

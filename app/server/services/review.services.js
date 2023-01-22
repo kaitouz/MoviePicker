@@ -16,10 +16,10 @@ const getAllReviewsByMovieID = async (movie_id) =>
         WHERE movie_id = ?
         ORDER BY review.time ASC`, movie_id)
 
-const addReview = async (user_id, movie_id, content) =>
+const addReview = async (comment_id, user_id, movie_id, content) =>
     await query(
-        'INSERT INTO review (user_id, movie_id, content) VALUES (?, ?, ?)',
-        [user_id, movie_id, content]
+        'INSERT INTO review (id, user_id, movie_id, content) VALUES (?, ?, ?, ?)',
+        [comment_id, user_id, movie_id, content]
     )
 
 const updateReview = async (id, new_content) =>
