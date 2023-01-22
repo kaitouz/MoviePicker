@@ -1,8 +1,6 @@
 import './App.scss';
 import { BrowserRouter } from 'react-router-dom';
 
-import Bookmark from './components/bookmark/Bookmark';
-
 import Routes from './config/Routes';
 import Header from './components/header/Header'
 import Footer from './components/footer/Footer';
@@ -17,8 +15,6 @@ const App = () => {
           <Footer />
         </div>
       </BrowserRouter>
-
-      <Bookmark movieId='1211' category='movie' onClick={() => console.log('click')}/>
     </div>
   )
 }
