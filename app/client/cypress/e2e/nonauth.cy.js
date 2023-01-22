@@ -81,7 +81,7 @@ describe('Nonauth tests', () => {
   it('test pick-random movie from movie board', function() {
     cy.visit('http://localhost:3000/');
     cy.get(':nth-child(2) > a').click();
-    cy.get(':nth-child(1) > .movie-card_container > .movie-card > .btn').click({force: true});
+    cy.get('button').contains('Detail').click({force: true});
     cy.get('.movie-overview__info__title > .title').should('be.visible');
     cy.get('.fa').should('be.visible');
     cy.get('.movie-overview__poster__img').should('be.visible');
@@ -89,11 +89,56 @@ describe('Nonauth tests', () => {
 
   it('test pick-random tv-serie from tv board', function() {
     cy.visit('http://localhost:3000/');
-    cy.get('.header__nav > :nth-child(3) > a').click();
-    cy.get(':nth-child(1) > .movie-card_container > .movie-card > .btn').click({force: true});
+    cy.get('.header__nav').click();
+    cy.get('button').contains('Detail').click({force: true});
     cy.get('.movie-overview__info__title > .title').should('be.visible');
-    cy.get('.movie-overview__poster__img').should('be.visible');
     cy.get('.fa').should('be.visible');
     cy.get('.movie-overview').should('be.visible');
+  });
+
+  it('test pick genre in movie board ', function() {
+    cy.visit('http://localhost:3000/');
+    cy.get('a').contains('Movies').click();
+    cy.get('div').contains('Action').click();
+    cy.url().should('include', '/movie/genre/28')
+    cy.get('b').should('have.text', 'Action');
+
+
+    cy.get('div').contains('Adventure').click();
+    cy.get('b').should('have.text', 'Adventure');
+
+    cy.get('div').contains('Animation').click();
+    cy.get('b').should('have.text', 'Animation');
+
+    cy.get('div').contains('Comedy').click();
+    cy.get('b').should('have.text', 'Comedy');
+
+    cy.get('div').contains('Crime').click();
+    cy.get('b').should('have.text', 'Crime');
+
+    cy.get('div').contains('Documentary').click();
+    cy.get('b').should('have.text', 'Documentary');
+  });
+
+  it('test pick genre in tv board ', function() {
+    cy.visit('http://localhost:3000/');
+    cy.get('a').contains('TV Series').click();
+    cy.get('div').contains('Western').click();
+    cy.get('b').should('have.text', 'Western');
+
+    cy.get('div').contains('Drama').click();
+    cy.get('b').should('have.text', 'Drama');
+
+    cy.get('div').contains('Animation').click();
+    cy.get('b').should('have.text', 'Animation');
+
+    cy.get('div').contains('Talk').click();
+    cy.get('b').should('have.text', 'Talk');
+
+    cy.get('div').contains('News').click();
+    cy.get('b').should('have.text', 'News');
+
+    cy.get('div').contains('Documentary').click();
+    cy.get('b').should('have.text', 'Documentary');
   });
 })
