@@ -1,24 +1,18 @@
-import { render, screen, fireEvent } from "@testing-library/react"
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom'
-import Button from "./Button"
+import Button from './Button';
 
-test('Test button name', () => {
-    render(<Button name='Test button'/>)
+describe('Button', () => {
+  it('renders the name prop as its text', () => {
+    const { getByText } = render(<Button name="Click me" />);
+    expect(getByText('Click me')).toBeInTheDocument();
+  });
 
-    const button = screen.getByRole('button', {name: "Test button"})
-
-    expect(button).toBeInTheDocument()
-})
-
-test('Test button callback', () => {
-    const logSpy = jest.spyOn(console, 'log')
-
-    render(<Button onClick={() => {
-        console.log('Test click')
-    }}/>)
-
-    const button = screen.getByRole('button')
-
-    fireEvent.click(button)
-    expect(logSpy).toHaveBeenCalledWith('Test click')
-})
+  it('calls the onClick prop when clicked', () => {
+    const onClick = jest.fn();
+    const { getByText } = render(<Button name="Click me" onClick={onClick} />);
+    fireEvent.click(getByText('Click me'));
+    expect(onClick).toHaveBeenCalled();
+  });
+});
