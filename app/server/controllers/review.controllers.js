@@ -4,10 +4,11 @@ exports.addReview = async (req, res) => {
     const user = req.user
     const movie_id = req.body.movie_id
     const content = req.body.content
+    const commentId = req.body.comment_id
     if (!movie_id) return res.status(401).send('movie_id not found')
     if (!content) return res.status(401).send('content must not be null')
 
-    const result = await reviewService.addReview(user.id, movie_id, content)
+    const result = await reviewService.addReview(commentId, user.id, movie_id, content)
 
     res.json({
         message: 'review added',

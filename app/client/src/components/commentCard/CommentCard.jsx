@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
 import { FaEdit, FaTrashAlt } from 'react-icons/fa'
 import moment from 'moment'
@@ -13,7 +13,6 @@ import apiConfig from '../../api/serverAPI/apiConfig'
 const CommentCard = (props) => {
   const item = props.item
   const user = JSON.parse(localStorage.getItem('user'))
-  const [processDelete, setProcessDelete] = useState(false)
 
   const content = useRef(null)
 
@@ -21,13 +20,12 @@ const CommentCard = (props) => {
   const deleteComment = () => {
     const token = localStorage.getItem('token')
     if (token) {
-      setProcessDelete(true)
+      if (props.onDelete) props.onDelete()
       reviewAPI.deleteReview(item.id, token).then(() => {
+        console.log('success', item.id)
         if (props.onDeleteSuccess) props.onDeleteSuccess()
-        setProcessDelete(false)
       }).catch(err => {
         console.log(err)
-        setProcessDelete(false)
       })
     }
   }
@@ -88,13 +86,10 @@ const CommentCard = (props) => {
           }
           {(user && (item.user_id === user.id || user.role === 'admin')) ?
             <div className="delete" onClick={deleteComment}>
-              {
-                processDelete ? <Loading></Loading>
-                  : <>
-                    <FaTrashAlt />
-                    <p>Delete</p>
-                  </>
-              }
+
+              <FaTrashAlt />
+              <p>Delete</p>
+
             </div> : null
           }
         </div>
@@ -168,14 +163,15 @@ export const PseudoComment = () => {
         </div>
       </div> : null}
     </>
-   
-  
+
+
   )
 
 }
 
 CommentCard.propTypes = {
   item: PropTypes.object.isRequired,
+  onDelete: PropTypes.func,
   onDeleteSuccess: PropTypes.func,
   onEditSuccess: PropTypes.func
 }
